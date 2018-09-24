@@ -2,7 +2,6 @@
 
 Laravel Admin & BREAD System (Browse, Read, Edit, Add, & Delete), supporting Laravel 5.4, 5.5 and 5.6!
 
-<hr>
 Disclaimer (pt_BR)
 ==========
 Este repositório é uma versão modificada do pacote [tcg/voyager](https://github.com/the-control-group/voyager). Diversas mudanças foram realizadas para uma melhor integração com as demais libs do projeto [Versatile](https://github.com/versatilecms).
@@ -23,7 +22,7 @@ Este repositório é uma versão modificada do pacote [tcg/voyager](https://gith
 
 <hr>
 
-## Installation Steps
+## Installation
 
 ### 1. Require the Package
 
