@@ -1,0 +1,1 @@
+@include('versatile::partials.coordinates')

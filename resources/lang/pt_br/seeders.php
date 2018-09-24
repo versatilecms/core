@@ -1,0 +1,116 @@
+<?php
+
+return [
+    'data_rows'  => [
+        'author'           => 'Autor',
+        'avatar'           => 'Avatar',
+        'body'             => 'Conteúdo',
+        'category'         => 'Categoria',
+        'created_at'       => 'Criado em',
+        'published_at'     => 'Publicado em',
+        'display_name'     => 'Nome de Exibição',
+        'email'            => 'Email',
+        'excerpt'          => 'Resumo',
+        'featured'         => 'Destaque',
+        'id'               => 'ID',
+        'meta_description' => 'Meta Description',
+        'meta_keywords'    => 'Meta Keywords',
+        'name'             => 'Nome',
+        'order'            => 'Ordem',
+        'page_image'       => 'Imagem da Página',
+        'parent'           => 'Principal',
+        'password'         => 'Senha',
+        'post_image'       => 'Imagem do Post',
+        'remember_token'   => 'Lembrar do Token',
+        'role'             => 'Função',
+        'roles'            => 'Funções',
+        'seo_title'        => 'SEO Title',
+        'slug'             => 'Slug',
+        'status'           => 'Status',
+        'title'            => 'Título',
+        'updated_at'       => 'Atualizado em',
+        'tags'             => 'Tags',
+    ],
+    'data_types' => [
+        'category' => [
+            'singular' => 'Categoria',
+            'plural'   => 'Categorias',
+        ],
+        'menu'     => [
+            'singular' => 'Menu',
+            'plural'   => 'Menus',
+        ],
+        'page'     => [
+            'singular' => 'Página',
+            'plural'   => 'Páginas',
+        ],
+        'post'     => [
+            'singular' => 'Post',
+            'plural'   => 'Posts',
+        ],
+        'role'     => [
+            'singular' => 'Função',
+            'plural'   => 'Funções',
+        ],
+        'user'     => [
+            'singular' => 'Usuário',
+            'plural'   => 'Usuários',
+        ],
+        'form'     => [
+            'singular' => 'Formulário',
+            'plural'   => 'Formulários',
+        ],
+        'input'     => [
+            'singular' => 'Input',
+            'plural'   => 'Inputs',
+        ],
+        'enquiry'     => [
+            'singular' => 'Registro',
+            'plural'   => 'Registros',
+        ],
+        'page_block'     => [
+            'singular' => 'Bloco de página',
+            'plural'   => 'Blocos de página',
+        ],
+    ],
+    'menu_items' => [
+        'bread'        => 'BREAD',
+        'blog'         => 'Blog',
+        'categories'   => 'Categorias',
+        'compass'      => 'Guia',
+        'dashboard'    => 'Dashboard',
+        'database'     => 'Database',
+        'media'        => 'Mídia',
+        'menu_builder' => 'Menus',
+        'pages'        => 'Páginas',
+        'posts'        => 'Posts',
+        'roles'        => 'Funções',
+        'settings'     => 'Configurações',
+        'tools'        => 'Ferramentas',
+        'users'        => 'Usuários',
+        'forms'        => 'Formulários',
+        'form_management'        => 'Gerenciamento',
+        'enquiries' => 'Registros'
+    ],
+    'roles'      => [
+        'admin' => 'Administrador',
+        'user'  => 'Usuário Comum',
+    ],
+    'settings'   => [
+        'admin' => [
+            'background_image'           => 'Imagem de fundo do Administrador',
+            'description'                => 'Descrição do Administrador',
+            'description_value'          => 'Bem vindo ao Versatile. O seu painel de controle completo.',
+            'google_analytics_client_id' => 'Google Analytics Client ID (usado para painel de administração)',
+            'icon_image'                 => 'Ícone do Administrador',
+            'loader'                     => 'Admin Loader',
+            'title'                      => 'Título do Administrador',
+        ],
+        'site'  => [
+            'description'                  => 'Descrição do Site',
+            'google_analytics_tracking_id' => 'Google Analytics Tracking ID',
+            'logo'                         => 'Logo do Site',
+            'title'                        => 'Título do Site',
+        ],
+    ],
+];

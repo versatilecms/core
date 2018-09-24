@@ -1,0 +1,1 @@
+@include('versatile::_components.fields.form.relationship', ['view' => 'read', 'options' => $rowDetails])

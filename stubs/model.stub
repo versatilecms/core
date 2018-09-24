@@ -1,0 +1,13 @@
+<?php
+
+namespace DummyNamespace;
+
+use Versatile\Core\Models\BaseModel;
+//DummySDTraitInclude
+
+class DummyClass extends BaseModel
+{
+    //DummySDTrait
+
+	public $table = 'dummy_table_name';
+}

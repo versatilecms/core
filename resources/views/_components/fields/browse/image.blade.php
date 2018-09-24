@@ -1,0 +1,1 @@
+<img src="@if( !filter_var($data->{$row->field}, FILTER_VALIDATE_URL)){{ Versatile::image( $data->{$row->field} ) }}@else{{ $data->{$row->field} }}@endif" style="width:48px">
