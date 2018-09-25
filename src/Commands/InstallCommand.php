@@ -71,7 +71,7 @@ class InstallCommand extends Command
         // Publish only relevant resources on install
         $tags = ['versatile_assets', 'dummy_content', 'config'];
 
-        $this->call('vendor:publish', ['--provider' => VersatileServiceProvider::class, '--tag' => $tags, '--force' => true]);
+        $this->call('vendor:publish', ['--provider' => VersatileServiceProvider::class, '--tag' => $tags]);
         $this->call('vendor:publish', ['--provider' => ImageServiceProviderLaravel5::class]);
 
         $this->info('Migrating the database tables into your application');
