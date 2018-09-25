@@ -1,5 +1,5 @@
 
-## Voyager BREAD generator
+## Versatile BREAD generator
 
 There is a common issue when we try to deploy local projects to a different environment. Currently, we need to export the database or so, in order to keep all the new BREADs structure across all the environments.
 
@@ -11,13 +11,13 @@ This allows the developers to create new BREADs from the command line using Arti
 
 ### create a new bread
 ```bash
-php artisan voyager:bread books
+php artisan versatile:bread books
 ```
 
 You can also generate the model and migration files
 
 ```bash
-php artisan voyager:bread books --migration --model
+php artisan versatile:bread books --migration --model
 ```
 
 ### Configure the bread

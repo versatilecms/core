@@ -26,7 +26,7 @@ Este repositório é uma versão modificada do pacote [tcg/voyager](https://gith
 
 ### 1. Require the Package
 
-After creating your new Laravel application you can include the Voyager package with the following command: 
+After creating your new Laravel application you can include the Versatile package with the following command: 
 
 ```bash
 composer require versatilecms/core
@@ -56,7 +56,7 @@ APP_URL=http://localhost:8000
 Lastly, we can install versatile. You can do this either with or without dummy data.
 The dummy data will include 1 admin account (if no users already exists), 1 demo page, 4 demo posts, 2 categories and 7 settings.
 
-To install Voyager without dummy simply run
+To install Versatile without dummy simply run
 
 ```bash
 php artisan versatile:install
