@@ -29,5 +29,7 @@
                 "Versatile\\Core\\VersatileServiceProvider"
             ]
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
