@@ -251,6 +251,9 @@ class VersatileServiceProvider extends ServiceProvider
             'dummy_content' => [
                 $this->packagePath . 'publishable/dummy_content/' => storage_path('app/public'),
             ],
+            'config' => [
+                $this->packagePath . 'config/versatile.php' => config_path('versatile.php'),
+            ]
         ];
 
         foreach ($publishable as $group => $paths) {
@@ -260,14 +263,8 @@ class VersatileServiceProvider extends ServiceProvider
 
     public function registerConfigs()
     {
-        /*
         $this->mergeConfigFrom(
             $this->packagePath . 'config/versatile.php', 'versatile'
-        );
-        */
-
-        $this->mergeConfigFrom(
-            $this->packagePath . 'config/versatile_dummy.php', 'versatile'
         );
     }
 
