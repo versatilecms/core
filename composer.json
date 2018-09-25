@@ -13,7 +13,11 @@
         "doctrine/dbal": "^2.5",
         "larapack/doctrine-support": "~0.1.4",
         "arrilot/laravel-widgets": "^3.7",
-        "league/flysystem": "~1.0.41"
+        "league/flysystem": "~1.0.41",
+
+        "versatilelibs/laravel-query-builder": "0.1.*",
+        "versatilelibs/laravel-searchable": "0.1.*",
+        "versatilelibs/laravel-html": "0.1.*",
     },
     "autoload": {
         "psr-4": {
