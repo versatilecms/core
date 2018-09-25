@@ -20,12 +20,13 @@
             "Versatile\\Core\\": "src/"
         }
     },
-    "minimum-stability": "dev",
     "extra": {
         "laravel": {
             "providers": [
                 "Versatile\\Core\\VersatileServiceProvider"
             ]
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
