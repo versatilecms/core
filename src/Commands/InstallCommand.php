@@ -69,7 +69,7 @@ class InstallCommand extends Command
         $this->info('Publishing the Versatile assets, database, and config files');
 
         // Publish only relevant resources on install
-        $tags = ['versatile_assets', 'dummy_content'];
+        $tags = ['versatile_assets', 'dummy_content', 'config'];
 
         $this->call('vendor:publish', ['--provider' => VersatileServiceProvider::class, '--tag' => $tags, '--force' => true]);
         $this->call('vendor:publish', ['--provider' => ImageServiceProviderLaravel5::class]);
