@@ -395,8 +395,8 @@ class BaseController extends Controller
 
         // Delete Files
         foreach ($dataType->deleteRows->where('type', 'file') as $row) {
-            if (is_array($field = json_decode($data->{$row->field}))) {
-                foreach ($field as $file) {
+            if (isset($data->{$row->field})) {
+                foreach (json_decode($data->{$row->field}) as $file) {
                     $this->deleteFileIfExists($file->download_link);
                 }
             }
