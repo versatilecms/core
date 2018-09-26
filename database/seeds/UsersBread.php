@@ -46,7 +46,7 @@ class UsersBread extends AbstractBreadSeeder
                 'edit' => 1,
                 'add' => 1,
                 'delete' => 1,
-                'details' => json_encode([
+                'details' => [
                     'resize' => [
                         'width' => '350',
                         'height' => '350',
@@ -70,7 +70,7 @@ class UsersBread extends AbstractBreadSeeder
                             ],
                         ],
                     ],
-                ]),
+                ],
                 'order' => 2,
             ],
 

@@ -10,7 +10,7 @@ $(document).ready(function(){
     menubar: false,
     selector:'textarea.richTextBox',
     skin: 'versatile',
-    min_height: 600,
+    min_height: 300,
     resize: 'vertical',
     plugins: 'link, image, code, youtube, giphy, table, textcolor, lists',
     extended_valid_elements : 'input[id|name|value|type|class|style|required|placeholder|autocomplete|onclick]',
