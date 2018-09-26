@@ -5,7 +5,7 @@ namespace Versatile\Core\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\ImageManagerStatic as Image;
+use Intervention\Image\Facades\Image;
 use League\Flysystem\Plugin\ListWith;
 use Versatile\Core\Facades\Versatile;
 
