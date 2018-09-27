@@ -17,6 +17,9 @@ trait BreadRelationship
             if ($row->type == 'relationship') {
 
                 $options = $row->details;
+                if (is_string($options)) {
+                    $options = json_decode($options);
+                }
                 
                 if ($options->type == 'belongsTo') {
                     $relationshipField = @$options->column;

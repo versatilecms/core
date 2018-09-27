@@ -198,7 +198,7 @@ class UsersBread extends AbstractBreadSeeder
             ],
 
             'locale' => [
-                'type' => 'text',
+                'type' => 'select_dropdown',
                 'display_name' => 'Locale',
                 'required' => 0,
                 'browse' => 1,
@@ -206,7 +206,13 @@ class UsersBread extends AbstractBreadSeeder
                 'edit' => 1,
                 'add' => 1,
                 'delete' => 0,
-                'details' => '',
+                'details' => [
+                    'default' => 'en',
+                    'options' => [
+                        'pt_br' => 'pt_br',
+                        'en' => 'en',
+                    ]
+                ],
                 'order' => 11,
             ],
 
@@ -299,7 +305,7 @@ class UsersBread extends AbstractBreadSeeder
                 'role_id' => 1,
             ]);
 
-            for ($i=0; $i < 100; $i++) { 
+/*             for ($i=0; $i < 100; $i++) { 
                 User::insert([
                     'name' => 'User Demo - ' . $i,
                     'email' => 'demo' . $i . '@demo.com',
@@ -307,7 +313,7 @@ class UsersBread extends AbstractBreadSeeder
                     'remember_token' => str_random(60),
                     'role_id' => 2,
                 ]);
-            }
+            } */
         }
     }
 }

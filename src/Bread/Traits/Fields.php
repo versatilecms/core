@@ -50,27 +50,27 @@ trait Fields
 
     public function browseRows()
     {
-        return $this->rows()->where('browse', 1);
+        return $this->rows()->where('browse', true);
     }
 
     public function readRows()
     {
-        return $this->rows()->where('read', 1);
+        return $this->rows()->where('read', true);
     }
 
     public function editRows()
     {
-        return $this->rows()->where('edit', 1);
+        return $this->rows()->where('edit', true);
     }
 
     public function addRows()
     {
-        return $this->rows()->where('add', 1);
+        return $this->rows()->where('add', true);
     }
 
     public function deleteRows()
     {
-        return $this->rows()->where('delete', 1);
+        return $this->rows()->where('delete', true);
     }
 
     public function firstRow()

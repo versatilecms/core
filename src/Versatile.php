@@ -300,6 +300,14 @@ class Versatile
      */
     public function getLocales()
     {
-        return array_diff(scandir(realpath(__DIR__.'/../resources/lang')), ['..', '.']);
+        $list = array_diff(scandir(realpath(__DIR__.'/../resources/lang')), ['..', '.']);
+        $locales = [];
+        if ($list) {
+            foreach ($list as $locale) {
+                $locales[$locale] = $locale;
+            }
+        }
+
+        return $locales;
     }
 }

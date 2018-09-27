@@ -36,7 +36,7 @@ class DataType extends BaseModel implements DataTypeInterface
     ];
 
     protected $casts = [
-        'details' => 'array',
+        'details' => 'object',
     ];
 
     /**

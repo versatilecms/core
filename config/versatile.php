@@ -189,6 +189,14 @@ return [
 
         // which role add premissions to
         'default_role' => 'admin',
+
+        'views' => [
+            'browse' => 'versatile::bread.browse',
+            'read' => 'versatile::bread.read',
+            'edit' => 'versatile::bread.edit-add',
+            'add' => 'versatile::bread.edit-add',
+            'order' => 'versatile::bread.order',
+        ]
     ],
 
     /*

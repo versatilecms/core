@@ -8,12 +8,12 @@ class DataRow
     public $type;
     public $display_name;
     public $required;
-    public $browse;
-    public $read;
-    public $edit;
-    public $add;
-    public $delete;
-    public $details;
+    public $browse = 1;
+    public $read = 1;
+    public $edit = 1;
+    public $add = 1;
+    public $delete = 1;
+    public $details = [];
     public $order;
 
     public $dataType;

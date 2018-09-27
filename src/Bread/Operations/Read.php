@@ -37,8 +37,7 @@ trait Read
         // Check if BREAD is Translatable
         $isModelTranslatable = is_bread_translatable($dataTypeContent);
 
-        $view = 'versatile::bread.read';
-
+        $view = $this->bread->getReadView();
         if (view()->exists("versatile::{$slug}.read")) {
             $view = "versatile::{$slug}.read";
         }

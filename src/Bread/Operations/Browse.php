@@ -58,8 +58,7 @@ trait Browse
             $dataTypeContent->load('translations');
         }
 
-        $view = 'versatile::bread.browse';
-
+        $view = $this->bread->getBrowseView();
         if (view()->exists("versatile::{$slug}.browse")) {
             $view = "versatile::{$slug}.browse";
         }

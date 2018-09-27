@@ -64,6 +64,9 @@
                                 </div>
                             @endcan
 
+                            {!! form_fields($dataTypeRows, $dataTypeContent, ['locale']) !!}
+
+                            {{--
                             @php
                             if (isset($dataTypeContent->locale)) {
                                 $selected_locale = $dataTypeContent->locale;
@@ -80,6 +83,7 @@
                                     @endforeach
                                 </select>
                             </div>
+                            --}}
                         </div>
                     </div>
                 </div>

@@ -36,8 +36,7 @@ trait Add
         // Check if BREAD is Translatable
         $isModelTranslatable = is_bread_translatable($model);
 
-        $view = 'versatile::bread.edit-add';
-
+        $view = $this->bread->getAddView();
         if (view()->exists("versatile::{$slug}.edit-add")) {
             $view = "versatile::{$slug}.edit-add";
         }

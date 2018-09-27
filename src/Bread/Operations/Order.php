@@ -37,7 +37,7 @@ trait Order
 
         $display_column = $dataType->order_display_column;
 
-        $view = 'versatile::bread.order';
+        $view = $this->bread->getOrderView();
         if (view()->exists("versatile::{$slug}.order")) {
             $view = "versatile::{$slug}.order";
         }
