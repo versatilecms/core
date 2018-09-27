@@ -1,9 +1,11 @@
 <?php
 
-namespace Versatile\Core\Http\Controllers;
+namespace Versatile\Core\Http\Controllers\Tools;
 
 use Illuminate\Http\Request;
 use Versatile\Core\Facades\Versatile;
+
+use Versatile\Core\Http\Controllers\Controller;
 
 class MenuController extends Controller
 {

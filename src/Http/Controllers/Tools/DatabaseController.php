@@ -1,6 +1,6 @@
 <?php
 
-namespace Versatile\Core\Http\Controllers;
+namespace Versatile\Core\Http\Controllers\Tools;
 
 use Exception;
 use Illuminate\Http\Request;
@@ -18,6 +18,8 @@ use Versatile\Core\Events\TableDeleted;
 use Versatile\Core\Events\TableUpdated;
 use Versatile\Core\Facades\Versatile;
 use Versatile\Core\Models\DataType;
+
+use Versatile\Core\Http\Controllers\Controller;
 
 class DatabaseController extends Controller
 {

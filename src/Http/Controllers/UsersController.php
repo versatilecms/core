@@ -11,35 +11,20 @@ use Versatile\Core\Components\Actions\Handlers\ImpersonateAction;
 
 class UsersController extends BaseController
 {
-    /**
-     * @var string
-     */
-    protected $actionsFormat = 'dropdown';
-
-    /**
-     * Get the actions available for the resource.
-     *
-     * @return array
-     */
-    public function actions()
+    public function setup()
     {
-        return [
+        $this->bread->setActionsFormat('dropdown');//DataType::ACTIONS_DROPDOWN);
+
+        $this->bread->addAction(
             ImpersonateAction::class
-        ];
-    }
+        );
 
-    /**
-     * Get the filters available for the resource.
-     *
-     * @return array
-     */
-    public function filters()
-    {
-        return [
+        $this->bread->addFilters([
             RoleFilter::class,
             RolesFilter::class,
             CreatedAtFilter::class
-        ];
+        ]);
+
     }
 
     /**

@@ -9,7 +9,7 @@ use Intervention\Image\Constraint;
 use Intervention\Image\Facades\Image;
 use Versatile\Core\Facades\Versatile;
 
-class VersatileController extends Controller
+class DashboardController extends Controller
 {
     public function index()
     {

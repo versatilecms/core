@@ -53,22 +53,22 @@ Route::group([
         // Main Admin and Logout Route
 
         Route::get('/', [
-            'uses' => $namespacePrefix . 'VersatileController@index',
+            'uses' => $namespacePrefix . 'DashboardController@index',
             'as' => 'dashboard'
         ]);
 
         Route::post('logout', [
-            'uses' => $namespacePrefix . 'VersatileController@logout',
+            'uses' => $namespacePrefix . 'DashboardController@logout',
             'as' => 'logout'
         ]);
 
         Route::post('upload', [
-            'uses' => $namespacePrefix . 'VersatileController@upload',
+            'uses' => $namespacePrefix . 'DashboardController@upload',
             'as' => 'upload'
         ]);
 
         Route::get('profile', [
-            'uses' => $namespacePrefix . 'VersatileController@profile',
+            'uses' => $namespacePrefix . 'DashboardController@profile',
             'as' => 'profile'
         ]);
 
@@ -116,12 +116,12 @@ Route::group([
             'prefix' => 'menus/{menu}',
         ], function () use ($namespacePrefix) {
             Route::get('builder', [
-                'uses' => $namespacePrefix . 'MenuController@builder',
+                'uses' => $namespacePrefix . 'Tools\MenuController@builder',
                 'as' => 'builder'
             ]);
 
             Route::post('order', [
-                'uses' => $namespacePrefix . 'MenuController@order_item',
+                'uses' => $namespacePrefix . 'Tools\MenuController@order_item',
                 'as' => 'order'
             ]);
 
@@ -130,17 +130,17 @@ Route::group([
                 'prefix' => 'item',
             ], function () use ($namespacePrefix) {
                 Route::delete('{id}', [
-                    'uses' => $namespacePrefix . 'MenuController@delete_menu',
+                    'uses' => $namespacePrefix . 'Tools\MenuController@delete_menu',
                     'as' => 'destroy'
                 ]);
 
                 Route::post('/', [
-                    'uses' => $namespacePrefix . 'MenuController@add_item',
+                    'uses' => $namespacePrefix . 'Tools\MenuController@add_item',
                     'as' => 'add'
                 ]);
 
                 Route::put('/', [
-                    'uses' => $namespacePrefix .'MenuController@update_item',
+                    'uses' => $namespacePrefix .'Tools\MenuController@update_item',
                     'as' => 'update'
                 ]);
             });
@@ -249,48 +249,48 @@ Route::group([
             'prefix' => 'bread',
         ], function () use ($namespacePrefix) {
             Route::get('/', [
-                'uses' => $namespacePrefix . 'BreadController@index',
+                'uses' => $namespacePrefix . 'Tools\BreadController@index',
                 'as' => 'index'
             ]);
 
             Route::get('{table}/create', [
-                'uses' => $namespacePrefix . 'BreadController@create',
+                'uses' => $namespacePrefix . 'Tools\BreadController@create',
                 'as' => 'create'
             ]);
 
             Route::post('/', [
-                'uses' => $namespacePrefix . 'BreadController@store',
+                'uses' => $namespacePrefix . 'Tools\BreadController@store',
                 'as' => 'store'
             ]);
 
             Route::get('{table}/edit', [
-                'uses' => $namespacePrefix . 'BreadController@edit',
+                'uses' => $namespacePrefix . 'Tools\BreadController@edit',
                 'as' => 'edit'
             ]);
 
             Route::put('{id}', [
-                'uses' => $namespacePrefix . 'BreadController@update',
+                'uses' => $namespacePrefix . 'Tools\BreadController@update',
                 'as' => 'update'
             ]);
 
             Route::delete('{id}', [
-                'uses' => $namespacePrefix . 'BreadController@destroy',
+                'uses' => $namespacePrefix . 'Tools\BreadController@destroy',
                 'as' => 'delete'
             ]);
 
             Route::post('relationship', [
-                'uses' => $namespacePrefix . 'BreadController@addRelationship',
+                'uses' => $namespacePrefix . 'Tools\BreadController@addRelationship',
                 'as' => 'relationship'
             ]);
 
             Route::get('delete_relationship/{id}', [
-                'uses' => $namespacePrefix . 'BreadController@deleteRelationship',
+                'uses' => $namespacePrefix . 'Tools\BreadController@deleteRelationship',
                 'as' => 'delete_relationship'
             ]);
         });
 
         // Database Routes
-        Route::resource('database', $namespacePrefix . 'DatabaseController');
+        Route::resource('database', $namespacePrefix . 'Tools\DatabaseController');
 
         // Compass Routes
         Route::group([
@@ -298,12 +298,12 @@ Route::group([
             'prefix' => 'compass',
         ], function () use ($namespacePrefix) {
             Route::get('/', [
-                'uses' => $namespacePrefix . 'CompassController@index',
+                'uses' => $namespacePrefix . 'Tools\CompassController@index',
                 'as' => 'index'
             ]);
 
             Route::post('/', [
-                'uses' => $namespacePrefix . 'CompassController@index',
+                'uses' => $namespacePrefix . 'Tools\CompassController@index',
                 'as' => 'post'
             ]);
         });

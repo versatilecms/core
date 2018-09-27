@@ -1,6 +1,6 @@
 <?php
 
-namespace Versatile\Core\Http\Controllers;
+namespace Versatile\Core\Http\Controllers\Tools;
 
 use Artisan;
 use Exception;
@@ -9,6 +9,8 @@ use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 use Versatile\Core\Facades\Versatile;
 use Versatile\Core\Support\LogViewer;
+
+use Versatile\Core\Http\Controllers\Controller;
 
 class CompassController extends Controller
 {

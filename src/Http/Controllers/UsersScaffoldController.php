@@ -2,7 +2,9 @@
 
 namespace Versatile\Core\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Auth;
+use Illuminate\Support\Facades\Session;
+
 
 use Versatile\Core\Facades\Versatile;
 
@@ -11,7 +13,6 @@ use Versatile\Core\Policies\UserPolicy;
 use Versatile\Core\Models\Role;
 
 use Versatile\Core\Bread\DataTypeController;
-use Versatile\Core\Bread\DataType;
 
 use Versatile\Core\Components\Filters\Users\CreatedAtFilter;
 use Versatile\Core\Components\Filters\Users\RoleFilter;
@@ -281,4 +282,39 @@ class UsersScaffoldController extends DataTypeController
     // {
     //     dd($this->bread->getAddView);
     // }
+
+    /**
+     * Impersonate a user as an administrator
+     *
+     * @param $userId
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function impersonate($userId)
+    {
+        // Store our current 'admin' id to switch back to
+        Session::put('original_user.name', Auth::user()->name);
+        Session::put('original_user.id', Auth::id());
+
+        // Impersonate the requested user
+        Auth::loginUsingId($userId);
+
+        return redirect()->route('versatile.dashboard');
+    }
+
+    /**
+     * Login as the original user and destroy session
+     *
+     * @param $userId
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function revertImpersonate($userId)
+    {
+        if (Session::has('original_user.id') && $userId == Session::get('original_user.id')) {
+            // Login as the original user and destroy session
+            Session::forget('original_user');
+            Auth::loginUsingId($userId);
+
+            return redirect()->route('versatile.users.index');
+        }
+    }
 }

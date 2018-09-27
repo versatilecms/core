@@ -1,6 +1,6 @@
 <?php
 
-namespace Versatile\Core\Http\Controllers;
+namespace Versatile\Core\Http\Controllers\Tools;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -11,6 +11,8 @@ use Versatile\Core\Events\BreadDeleted;
 use Versatile\Core\Events\BreadUpdated;
 use Versatile\Core\Facades\Versatile;
 use Versatile\Core\Models\DataRow;
+
+use Versatile\Core\Http\Controllers\Controller;
 
 class BreadController extends Controller
 {
