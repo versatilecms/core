@@ -3,6 +3,9 @@
 namespace Versatile\Core\Bread\Operations;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
+use Versatile\Core\Events\FileDeleted;
 use Versatile\Core\Events\BreadDataDeleted;
 use Versatile\Core\Events\BreadImagesDeleted;
 use Versatile\Core\Models\DataType;
@@ -20,7 +23,6 @@ trait Delete
     public function destroy(Request $request, $id)
     {
         // Get the slug, ex. 'posts', 'pages', etc.
-        $dataTypeSlug = $this->bread->slug;
         $dataType = $this->bread;
         $model = $this->bread->getModel();
 

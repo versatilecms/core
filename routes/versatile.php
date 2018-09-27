@@ -95,6 +95,11 @@ Route::group([
 
         // Tests Scaffold
         Route::resource('scaffold', $namespacePrefix . 'UsersScaffoldController');
+        Route::get('scaffold/impersonate/{userId}', [
+            'uses' => "{$namespacePrefix}UsersController@impersonate",
+            'as' => 'scaffold.impersonate'
+        ]);
+
 
         // Role Routes
         Route::resource('roles', $namespacePrefix . 'RoleController');

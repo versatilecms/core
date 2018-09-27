@@ -2,13 +2,12 @@
 
 namespace Versatile\Core\Http\Controllers;
 
-use Versatile\Core\Components\Actions\Handlers\ImpersonateAction;
-
 use Auth;
 use Illuminate\Support\Facades\Session;
 use Versatile\Core\Components\Filters\Users\CreatedAtFilter;
 use Versatile\Core\Components\Filters\Users\RoleFilter;
 use Versatile\Core\Components\Filters\Users\RolesFilter;
+use Versatile\Core\Components\Actions\Handlers\ImpersonateAction;
 
 class UsersController extends BaseController
 {

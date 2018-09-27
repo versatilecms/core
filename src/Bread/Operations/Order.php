@@ -17,8 +17,8 @@ trait Order
     public function order(Request $request)
     {
         // Get the slug, ex. 'posts', 'pages', etc.
-        $dataTypeSlug = $this->bread->slug;
         $dataType = $this->bread;
+        $slug = $this->bread->slug;
         $model = $this->bread->getModel();
 
         // Check permission
@@ -38,8 +38,8 @@ trait Order
         $display_column = $dataType->order_display_column;
 
         $view = 'versatile::bread.order';
-        if (view()->exists("versatile::{$dataTypeSlug}.order")) {
-            $view = "versatile::{$dataTypeSlug}.order";
+        if (view()->exists("versatile::{$slug}.order")) {
+            $view = "versatile::{$slug}.order";
         }
 
         return Versatile::view($view, compact(
@@ -56,7 +56,6 @@ trait Order
     public function updateOrder(Request $request)
     {
         // Get the slug, ex. 'posts', 'pages', etc.
-        $dataTypeSlug = $this->bread->slug;
         $dataType = $this->bread;
         $model = $this->bread->getModel();
 

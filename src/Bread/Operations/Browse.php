@@ -18,8 +18,8 @@ trait Browse
     public function index(Request $request)
     {
         // Get the slug, ex. 'posts', 'pages', etc.
-        $dataTypeSlug = $this->bread->slug;
         $dataType = $this->bread;
+        $slug = $this->bread->slug;
         $model = $this->bread->getModel();
 
         $filters = $this->bread->getFilters();
@@ -60,8 +60,8 @@ trait Browse
 
         $view = 'versatile::bread.browse';
 
-        if (view()->exists("versatile::{$dataTypeSlug}.browse")) {
-            $view = "versatile::{$dataTypeSlug}.browse";
+        if (view()->exists("versatile::{$slug}.browse")) {
+            $view = "versatile::{$slug}.browse";
         }
 
         return Versatile::view($view, [

@@ -18,8 +18,8 @@ trait Add
     public function create(Request $request)
     {
         // Get the slug, ex. 'posts', 'pages', etc.
-        $dataTypeSlug = $this->bread->slug;
         $dataType = $this->bread;
+        $slug = $this->bread->slug;
         $model = $this->bread->getModel();
 
         // Check permission
@@ -38,8 +38,8 @@ trait Add
 
         $view = 'versatile::bread.edit-add';
 
-        if (view()->exists("versatile::{$dataTypeSlug}.edit-add")) {
-            $view = "versatile::{$dataTypeSlug}.edit-add";
+        if (view()->exists("versatile::{$slug}.edit-add")) {
+            $view = "versatile::{$slug}.edit-add";
         }
 
         return Versatile::view($view, [
@@ -60,8 +60,8 @@ trait Add
     public function store(Request $request)
     {
         // Get the slug, ex. 'posts', 'pages', etc.
-        $dataTypeSlug = $this->bread->slug;
         $dataType = $this->bread;
+        $slug = $this->bread->slug;
         $model = $this->bread->getModel();
 
         // Check permission
@@ -78,7 +78,7 @@ trait Add
             return;
         }
 
-        $data = $this->insertUpdateData($request, $dataTypeSlug, $dataType->addRows, $model);
+        $data = $this->insertUpdateData($request, $slug, $dataType->addRows, $model);
 
         event(new BreadDataAdded($dataType, $data));
 
@@ -87,7 +87,7 @@ trait Add
         }
 
         return redirect()
-            ->route("versatile.{$dataType->slug}.index")
+            ->route("versatile.{$slug}.index")
             ->with([
                 'message' => __('versatile::generic.successfully_added_new') . " {$dataType->display_name_singular}",
                 'alert-type' => 'success',

@@ -20,8 +20,8 @@ trait Edit
     public function edit(Request $request, $id)
     {
         // Get the slug, ex. 'posts', 'pages', etc.
-        $dataTypeSlug = $this->bread->slug;
         $dataType = $this->bread;
+        $slug = $this->bread->slug;
         $model = $this->bread->getModel();
 
         $relationships = $this->getRelationships($dataType);
@@ -43,8 +43,8 @@ trait Edit
 
         $view = 'versatile::bread.edit-add';
 
-        if (view()->exists("versatile::{$dataTypeSlug}.edit-add")) {
-            $view = "versatile::{$dataTypeSlug}.edit-add";
+        if (view()->exists("versatile::{$slug}.edit-add")) {
+            $view = "versatile::{$slug}.edit-add";
         }
 
         return Versatile::view($view, [
@@ -65,8 +65,8 @@ trait Edit
     public function update(Request $request, $id)
     {
         // Get the slug, ex. 'posts', 'pages', etc.
-        $dataTypeSlug = $this->bread->slug;
         $dataType = $this->bread;
+        $slug = $this->bread->slug;
         $model = $this->bread->getModel();
 
         // Compatibility with Model binding.
@@ -87,7 +87,7 @@ trait Edit
         }
 
         if (!$request->ajax()) {
-            $this->insertUpdateData($request, $dataTypeSlug, $dataType->editRows, $data);
+            $this->insertUpdateData($request, $slug, $dataType->editRows, $data);
 
             event(new BreadDataUpdated($dataType, $data));
 

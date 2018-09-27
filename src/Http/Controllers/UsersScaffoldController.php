@@ -9,18 +9,37 @@ use Versatile\Core\Policies\UserPolicy;
 use Versatile\Core\Models\Role;
 
 use Versatile\Core\Bread\DataTypeController;
+use Versatile\Core\Bread\DataType;
+
+use Versatile\Core\Components\Filters\Users\CreatedAtFilter;
+use Versatile\Core\Components\Filters\Users\RoleFilter;
+use Versatile\Core\Components\Filters\Users\RolesFilter;
+use Versatile\Core\Components\Actions\Handlers\ImpersonateAction;
 
 class UsersScaffoldController extends DataTypeController
 {
 	public function setup()
 	{
+
 		$this->bread->name = 'users';
 		$this->bread->slug = 'scaffold';
-		$this->bread->display_name_singular = 'User';
-		$this->bread->display_name_plural = 'Users';
-		$this->bread->icon = 'versatile-person';
+
+        $this->bread->setDisplayName('User', 'Users');
+		$this->bread->setIcon('versatile-person');
 		$this->bread->setModel(User::class);
 		$this->bread->setPolicy(UserPolicy::class);
+
+        $this->bread->setActionsFormat('dropdown');//DataType::ACTIONS_DROPDOWN);
+
+        $this->bread->addAction(
+            ImpersonateAction::class
+        );
+
+        $this->bread->addFilters([
+            RoleFilter::class,
+            RolesFilter::class,
+            CreatedAtFilter::class
+        ]);
 
 		$this->bread->addDataRows([
            [
@@ -28,7 +47,7 @@ class UsersScaffoldController extends DataTypeController
                 'type' => 'number',
                 'display_name' => __('versatile::seeders.data_rows.id'),
                 'required' => 1,
-                'browse' => 0,
+                'browse' => 1,
                 'read' => 0,
                 'edit' => 0,
                 'add' => 0,

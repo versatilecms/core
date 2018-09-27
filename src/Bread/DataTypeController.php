@@ -59,6 +59,8 @@ class DataTypeController extends BaseController
             $this->bread = app()->make(DataType::class);
             $this->setup();
         }
+
+        $this->bread->defineActionsFormat();
     }
 
     /**
@@ -280,7 +282,7 @@ class DataTypeController extends BaseController
 
             $decoded = $value->details;
 
-            return !empty($decoded->validation['rule']);
+            return !empty($decoded->validation->rule);
         });
     }
 }

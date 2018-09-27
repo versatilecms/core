@@ -18,8 +18,8 @@ trait Read
     public function show(Request $request, $id)
     {
         // Get the slug, ex. 'posts', 'pages', etc.
-        $dataTypeSlug = $this->bread->slug;
         $dataType = $this->bread;
+        $slug = $this->bread->slug;
         $model = $this->bread->getModel();
 
         $relationships = $this->getRelationships($dataType);
@@ -39,8 +39,8 @@ trait Read
 
         $view = 'versatile::bread.read';
 
-        if (view()->exists("versatile::{$dataTypeSlug}.read")) {
-            $view = "versatile::{$dataTypeSlug}.read";
+        if (view()->exists("versatile::{$slug}.read")) {
+            $view = "versatile::{$slug}.read";
         }
 
         return Versatile::view($view, [

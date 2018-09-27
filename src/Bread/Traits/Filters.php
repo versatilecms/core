@@ -6,14 +6,20 @@ use Versatile\Core\Facades\Filters as FiltersFacade;
 
 trait Filters
 {
-    /**
-     * Get the filters available for the resource.
-     *
-     * @return array
-     */
-    public function filters()
+    public function addFilters($filters)
     {
-        return [];
+        foreach ($filters as $filter) {
+            FiltersFacade::add($filter);
+        }
+
+        return $this;
+    }
+
+    public function addFilter($filter)
+    {
+        FiltersFacade::add($filter);
+
+        return $this;
     }
 
     /**
@@ -21,10 +27,6 @@ trait Filters
      */
     public function getFilters()
     {
-        foreach ($this->filters() as $filter) {
-            FiltersFacade::add($filter);
-        }
-
         return FiltersFacade::getAll();
     }
 }
