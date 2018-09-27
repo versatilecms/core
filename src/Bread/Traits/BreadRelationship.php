@@ -1,12 +1,12 @@
 <?php
 
-namespace Versatile\Core\Http\Controllers\Traits;
+namespace Versatile\Core\Bread\Traits;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Versatile\Core\Models\DataType;
+use Versatile\Core\Bread\DataType;
 
-trait BreadRelationshipParserTrait
+trait BreadRelationship
 {
     protected $relation_field = [];
 
@@ -15,7 +15,8 @@ trait BreadRelationshipParserTrait
         $forgetKeys = [];
         foreach ($dataType->{$breadType.'Rows'} as $key => $row) {
             if ($row->type == 'relationship') {
-                $options = json_decode($row->details);
+
+                $options = $row->details;
 
                 if ($options->type == 'belongsTo') {
                     $relationshipField = @$options->column;
@@ -42,7 +43,9 @@ trait BreadRelationshipParserTrait
         $relationships = [];
 
         $dataType->browseRows->each(function ($item) use (&$relationships) {
-            $details = json_decode($item->details);
+
+            $details = $item->details;
+
             if (isset($details->relationship) && isset($item->field)) {
                 $relation = $details->relationship;
                 if (isset($relation->method)) {
@@ -117,7 +120,9 @@ trait BreadRelationshipParserTrait
                 }
 
                 $bread_data = $dataType->browseRows->where('field', $field)->first();
-                $relationData = json_decode($bread_data->details)->relationship;
+                
+                $relationData = $bread_data->details;
+                $relationData = $relationData->relationship;
 
                 if ($bread_data->type == 'select_multiple') {
                     $relationItems = [];

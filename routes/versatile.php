@@ -92,6 +92,10 @@ Route::group([
             // do nothing, might just be because table not yet migrated.
         }
 
+
+        // Tests Scaffold
+        Route::resource('scaffold', $namespacePrefix . 'UsersScaffoldController');
+
         // Role Routes
         Route::resource('roles', $namespacePrefix . 'RoleController');
 

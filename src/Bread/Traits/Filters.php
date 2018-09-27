@@ -1,12 +1,11 @@
 <?php
 
-namespace Versatile\Core\Http\Controllers\Traits;
+namespace Versatile\Core\Bread\Traits;
 
 use Versatile\Core\Facades\Filters as FiltersFacade;
 
 trait Filters
 {
-
     /**
      * Get the filters available for the resource.
      *

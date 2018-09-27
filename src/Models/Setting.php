@@ -11,4 +11,8 @@ class Setting extends BaseModel
     protected $guarded = [];
 
     public $timestamps = false;
+
+    protected $casts = [
+        'details' => 'object',
+    ];
 }

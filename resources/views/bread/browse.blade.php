@@ -63,7 +63,7 @@
                                     @endcan
                                     @foreach($dataType->browseRows as $row)
                                         <td>
-                                            <?php $options = json_decode($row->details); ?>
+                                            <?php $options = $row->details; ?>
                                             @if (view()->exists('versatile::_components.fields.browse.' . $row->type))
                                                 @include('versatile::_components.fields.browse.' . $row->type)
                                             @else

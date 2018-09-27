@@ -18,7 +18,10 @@ class BreadController extends Controller
     {
         Versatile::canOrFail('browse_bread');
 
-        $dataTypes = Versatile::model('DataType')->select('id', 'name', 'slug')->get()->keyBy('name')->toArray();
+        $dataTypes = Versatile::model('DataType')
+            ->select('id', 'name', 'slug')
+            ->get()->keyBy('name')
+            ->toArray();
 
         $tables = array_map(function ($table) use ($dataTypes) {
             $table = [

@@ -1,12 +1,11 @@
 <?php
 
-namespace Versatile\Core\Http\Controllers\Traits;
+namespace Versatile\Core\Bread\Traits;
 
 use Versatile\Core\Facades\Actions as ActionsFacade;
 
 trait Actions
 {
-
     /**
      * @var null|string
      */

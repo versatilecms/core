@@ -10,11 +10,13 @@ use Versatile\Core\Events\BreadDataDeleted;
 use Versatile\Core\Events\BreadDataUpdated;
 use Versatile\Core\Events\BreadImagesDeleted;
 use Versatile\Core\Facades\Versatile;
-use Versatile\Core\Http\Controllers\Traits\BreadRelationshipParserTrait;
+use Versatile\Core\Http\Controllers\Traits\BreadRelationship;
 use Versatile\Core\Models\DataType;
 
 class BaseController extends Controller
 {
+    use BreadRelationship;
+    
     /**
      * @var \Illuminate\Database\Eloquent\Model|string|null
      */
@@ -31,8 +33,6 @@ class BaseController extends Controller
      * @var null|string
      */
     protected $dataTypeSlug = null;
-
-    use BreadRelationshipParserTrait;
 
     /**
      * Browse our Data Type (B)READ
@@ -163,7 +163,7 @@ class BaseController extends Controller
         $dataTypeContent = $model->with($relationships)->findOrFail($id);
 
         foreach ($dataType->editRows as $key => $row) {
-            $details = json_decode($row->details);
+            $details = $row->details;
             $dataType->editRows[$key]['col_width'] = isset($details->width) ? $details->width : 100;
         }
 
@@ -253,7 +253,7 @@ class BaseController extends Controller
         $this->authorize('add', $model);
 
         foreach ($dataType->addRows as $key => $row) {
-            $details = json_decode($row->details);
+            $details = $row->details;
             $dataType->addRows[$key]['col_width'] = isset($details->width) ? $details->width : 100;
         }
 
@@ -418,7 +418,7 @@ class BaseController extends Controller
                 $this->deleteFileIfExists($data->{$row->field});
             }
 
-            $options = json_decode($row->details);
+            $options = $row->details;
 
             if (isset($options->thumbnails)) {
                 foreach ($options->thumbnails as $thumbnail) {

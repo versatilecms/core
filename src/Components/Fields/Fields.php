@@ -19,7 +19,7 @@ class Fields
 
     public function afterFields($row, $dataType, $dataTypeContent)
     {
-        $options = json_decode($row->details);
+        $options = $row->details;
 
         return collect($this->afterFields)->filter(function ($after) use ($row, $dataType, $dataTypeContent, $options) {
             return $after->visible($row, $dataType, $dataTypeContent, $options);

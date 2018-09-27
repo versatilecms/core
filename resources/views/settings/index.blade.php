@@ -272,7 +272,7 @@
                                     @elseif($setting->type == "rich_text_box")
                                         <textarea class="form-control richTextBox" name="{{ $setting->key }}">@if(isset($setting->value)){{ $setting->value }}@endif</textarea>
                                     @elseif($setting->type == "code_editor")
-                                        <?php $options = json_decode($setting->details); ?>
+                                        <?php $options = $setting->details; ?>
                                         <div id="{{ $setting->key }}" data-theme="{{ @$options->theme }}" data-language="{{ @$options->language }}" class="ace_editor min_height_400" name="{{ $setting->key }}">@if(isset($setting->value)){{ $setting->value }}@endif</div>
                                         <textarea name="{{ $setting->key }}" id="{{ $setting->key }}_textarea" class="hidden">@if(isset($setting->value)){{ $setting->value }}@endif</textarea>
                                     @elseif($setting->type == "image" || $setting->type == "file")
@@ -287,7 +287,7 @@
                                         @endif
                                         <input type="file" name="{{ $setting->key }}">
                                     @elseif($setting->type == "select_dropdown")
-                                        <?php $options = json_decode($setting->details); ?>
+                                        <?php $options = $setting->details; ?>
                                         <?php $selected_value = (isset($setting->value) && !empty($setting->value)) ? $setting->value : NULL; ?>
                                         <select class="form-control" name="{{ $setting->key }}">
                                             <?php $default = (isset($options->default)) ? $options->default : NULL; ?>
@@ -299,7 +299,7 @@
                                         </select>
 
                                     @elseif($setting->type == "radio_btn")
-                                        <?php $options = json_decode($setting->details); ?>
+                                        <?php $options = $setting->details; ?>
                                         <?php $selected_value = (isset($setting->value) && !empty($setting->value)) ? $setting->value : NULL; ?>
                                         <?php $default = (isset($options->default)) ? $options->default : NULL; ?>
                                         <ul class="radio">
@@ -315,7 +315,7 @@
                                             @endif
                                         </ul>
                                     @elseif($setting->type == "checkbox")
-                                        <?php $options = json_decode($setting->details); ?>
+                                        <?php $options = $setting->details; ?>
                                         <?php $checked = (isset($setting->value) && $setting->value == 1) ? true : false; ?>
                                         @if (isset($options->on) && isset($options->off))
                                             <input type="checkbox" name="{{ $setting->key }}" class="toggleswitch" @if($checked) checked @endif data-on="{{ $options->on }}" data-off="{{ $options->off }}">

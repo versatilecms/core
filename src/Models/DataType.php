@@ -7,8 +7,9 @@ use Illuminate\Support\Facades\DB;
 use Versatile\Core\Database\Schema\SchemaManager;
 use Versatile\Core\Facades\Versatile;
 use Versatile\Core\Traits\Translatable;
+use Versatile\Core\Contracts\DataTypeInterface;
 
-class DataType extends BaseModel
+class DataType extends BaseModel implements DataTypeInterface
 {
     use Translatable;
 
@@ -76,11 +77,6 @@ class DataType extends BaseModel
     public function deleteRows()
     {
         return $this->rows()->where('delete', 1);
-    }
-
-    public function filterRows()
-    {
-        return $this->rows()->where('filter', 1);
     }
 
     public function lastRow()
@@ -154,23 +150,6 @@ class DataType extends BaseModel
         return false;
     }
 
-    public function fields($name = null)
-    {
-        if (is_null($name)) {
-            $name = $this->name;
-        }
-
-        $fields = SchemaManager::listTableColumnNames($name);
-
-        if ($extraFields = $this->extraFields()) {
-            foreach ($extraFields as $field) {
-                $fields[] = $field['Field'];
-            }
-        }
-
-        return $fields;
-    }
-
     public function getRelationships($requestData, &$fields)
     {
         if (isset($requestData['relationships'])) {
@@ -206,6 +185,17 @@ class DataType extends BaseModel
         return $requestData;
     }
 
+    public function fields($name = null)
+    {
+        if (is_null($name)) {
+            $name = $this->name;
+        }
+
+        $fields = SchemaManager::listTableColumnNames($name);
+
+        return $fields;
+    }
+
     public function fieldOptions()
     {
         $table = $this->name;
@@ -222,25 +212,7 @@ class DataType extends BaseModel
         }
         $fieldOptions = collect($fieldOptions);
 
-        if ($extraFields = $this->extraFields()) {
-            foreach ($extraFields as $field) {
-                $fieldOptions[] = (object) $field;
-            }
-        }
-
         return $fieldOptions;
-    }
-
-    public function extraFields()
-    {
-        if (empty(trim($this->model_name))) {
-            return [];
-        }
-
-        $model = app($this->model_name);
-        if (method_exists($model, 'adminFields')) {
-            return $model->adminFields();
-        }
     }
 
     public function getOrderColumnAttribute()

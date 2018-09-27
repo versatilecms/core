@@ -3,7 +3,7 @@
 namespace Versatile\Core\Events;
 
 use Illuminate\Queue\SerializesModels;
-use Versatile\Core\Models\DataType;
+use Versatile\Core\Contracts\DataTypeInterface as DataType;
 
 class BreadDeleted
 {

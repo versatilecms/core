@@ -1,41 +1,37 @@
 <?php
 
-namespace Versatile\Core\Models;
+namespace Versatile\Core\Bread;
 
-use Versatile\Core\Models\BaseModel;
-use Versatile\Core\Facades\Versatile;
-
-class DataRow extends BaseModel
+class DataRow
 {
-    protected $table = 'data_rows';
+    public $field;
+    public $type;
+    public $display_name;
+    public $required;
+    public $browse;
+    public $read;
+    public $edit;
+    public $add;
+    public $delete;
+    public $details;
+    public $order;
 
-    protected $guarded = [];
+    public $dataType;
 
-    public $timestamps = false;
-
-    protected $casts = [
-        'details' => 'object',
-    ];
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function dataType()
+    public function __construct($dataRow)
     {
-        return $this->belongsTo(Versatile::modelClass('DataType'));
-    }
+        foreach ($dataRow as $property => $value) {
 
-    public function rowBefore()
-    {
-        $previous = self::where('data_type_id', '=', $this->data_type_id)
-            ->where('order', '=', ($this->order - 1))
-            ->first();
-        
-        if (isset($previous->id)) {
-            return $previous->field;
+            if (!property_exists($this, $property)) {
+                throw new \Exception("This property {$property} does not exist");
+            }
+
+            if ($property == 'details' && is_array($value)) {
+                $value = json_decode(json_encode($value, JSON_FORCE_OBJECT), false);
+            }
+
+            $this->{$property} = $value;
         }
-
-        return '__first__';
     }
 
     public function relationshipField()

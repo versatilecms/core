@@ -50,7 +50,7 @@
                                     <label for="default_role">{{ __('versatile::profile.role_default') }}</label>
                                     @php
                                         $row = $dataTypeRows->where('field', 'user_belongsto_role_relationship')->first();
-                                        $options = json_decode($row->details);
+                                        $options = $row->details;
                                     @endphp
                                     @include('versatile::_components.fields.form.relationship')
                                 </div>
@@ -58,7 +58,7 @@
                                     <label for="additional_roles">{{ __('versatile::profile.roles_additional') }}</label>
                                     @php
                                         $row = $dataTypeRows->where('field', 'user_belongstomany_role_relationship')->first();
-                                        $options = json_decode($row->details);
+                                        $options = $row->details;
                                     @endphp
                                     @include('versatile::_components.fields.form.relationship')
                                 </div>

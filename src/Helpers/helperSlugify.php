@@ -41,6 +41,6 @@ if (!function_exists('is_field_slug_auto_generator')) {
             return;
         }
 
-        return is_bread_slug_auto_generator(json_decode($_row->details));
+        return is_bread_slug_auto_generator($_row->details);
     }
 }

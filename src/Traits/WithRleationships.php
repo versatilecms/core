@@ -52,7 +52,7 @@ trait WithRleationships
             if (count($relationships)) {
                 // Iterate through relationships and match per type
                 foreach ($relationships as $relationship) {
-                    $config = json_decode($relationship->details);
+                    $config = $relationship->details;
 
                     // Reference: relationship.blade.php
                     // Relationship: hasOne

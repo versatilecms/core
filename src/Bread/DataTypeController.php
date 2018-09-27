@@ -1,14 +1,15 @@
 <?php
 
-namespace Versatile\Core\Http\Controllers;
+namespace Versatile\Core\Bread;
 
+use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Support\Facades\Storage;
-use Versatile\Core\Events\FileDeleted;
+
+use Versatile\Core\Traits\AlertsMessages;
+
 use Versatile\Core\Components\ContentTypes\Checkbox;
 use Versatile\Core\Components\ContentTypes\Coordinates;
 use Versatile\Core\Components\ContentTypes\File;
@@ -19,74 +20,52 @@ use Versatile\Core\Components\ContentTypes\Relationship;
 use Versatile\Core\Components\ContentTypes\SelectMultiple;
 use Versatile\Core\Components\ContentTypes\Text;
 use Versatile\Core\Components\ContentTypes\Timestamp;
-use Versatile\Core\Http\Controllers\Traits\Actions;
-use Versatile\Core\Http\Controllers\Traits\Filters;
-use Versatile\Core\Models\DataType;
-use Versatile\Core\Traits\AlertsMessages;
+
+use Versatile\Core\Bread\Operations\Add;
+use Versatile\Core\Bread\Operations\Browse;
+use Versatile\Core\Bread\Operations\Delete;
+use Versatile\Core\Bread\Operations\Edit;
+use Versatile\Core\Bread\Operations\Order;
+use Versatile\Core\Bread\Operations\Read;
+
+use Versatile\Core\Bread\Traits\BreadRelationship;
+
 use Validator;
 
-abstract class Controller extends BaseController
+class DataTypeController extends BaseController
 {
     use DispatchesJobs;
     use ValidatesRequests;
     use AuthorizesRequests;
     use AlertsMessages;
 
-    use Actions;
-    use Filters;
+    use Add;
+    use Browse;
+    use Delete;
+    use Edit;
+    use Order;
+    use Read;
+
+    use BreadRelationship;
 
     /**
-     * Controller constructor.
+     * @var DataType
      */
+    public $bread;
+
     public function __construct()
     {
-        $this->defineActionsFormat();
+        if (!$this->bread) {
+            $this->bread = app()->make(DataType::class);
+            $this->setup();
+        }
     }
 
     /**
-     * @param Request $request
-     * @return null|string
+     * Configuration options for a Scaffold.
      */
-    public function getDataTypeSlug(Request $request)
+    public function setup()
     {
-        if(!is_null($this->dataTypeSlug)) {
-            return $this->dataTypeSlug;
-        }
-
-        $slug = explode('.', $request->route()->getName());
-
-        if (isset($slug[1])) {
-            return $slug[1];
-        }
-
-        return null;
-    }
-
-    /**
-     * @param $dataTypeSlug
-     * @return \Illuminate\Database\Eloquent\Model
-     */
-    public function getDataType($dataTypeSlug)
-    {
-        // Get the DataType based on the slug
-        if (is_null($this->dataType)) {
-            return DataType::where('slug', '=', $dataTypeSlug)->first();
-        }
-
-        return $this->dataType;
-    }
-
-    /**
-     * @param DataType $dataType
-     * @return \Illuminate\Database\Eloquent\Model
-     */
-    public function getModel($dataType)
-    {
-        if (is_null($this->model)) {
-            return app($dataType->model_name);
-        }
-
-        return app($this->model);
     }
 
     public function insertUpdateData($request, $slug, $rows, $data)
@@ -303,18 +282,5 @@ abstract class Controller extends BaseController
 
             return !empty($decoded->validation['rule']);
         });
-    }
-
-    /**
-     * Delete file if exists
-     *
-     * @param $path
-     */
-    public function deleteFileIfExists($path)
-    {
-        if (Storage::disk(config('versatile.storage.disk'))->exists($path)) {
-            Storage::disk(config('versatile.storage.disk'))->delete($path);
-            event(new FileDeleted($path));
-        }
     }
 }
