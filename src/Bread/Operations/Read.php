@@ -2,7 +2,6 @@
 
 namespace Versatile\Core\Bread\Operations;
 
-use Illuminate\Http\Request;
 use Versatile\Core\Facades\Versatile;
 
 trait Read
@@ -10,26 +9,22 @@ trait Read
     /**
      * Read an item of our Data Type B(R)EAD
      *
-     * @param Request $request
      * @param $id
      * @return mixed
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function show(Request $request, $id)
+    public function show($id)
     {
-        // Get the slug, ex. 'posts', 'pages', etc.
-        $dataType = $this->bread;
-        $slug = $this->bread->slug;
         $model = $this->bread->getModel();
 
-        $relationships = $this->getRelationships($dataType);
+        $relationships = $this->getRelationships($this->bread);
         $dataTypeContent = call_user_func([$model->with($relationships), 'findOrFail'], $id);
 
         // Replace relationships' keys for labels and create READ links if a slug__ is provided.
-        $dataTypeContent = $this->resolveRelations($dataTypeContent, $dataType, true);
+        $dataTypeContent = $this->resolveRelations($dataTypeContent, $this->bread, true);
 
         // If a column has a relationship associated with it, we do not want to show that field
-        $this->removeRelationshipField($dataType, 'read');
+        $this->removeRelationshipField($this->bread, 'read');
 
         // Check permission
         $this->authorize('read', $dataTypeContent);
@@ -38,12 +33,12 @@ trait Read
         $isModelTranslatable = is_bread_translatable($dataTypeContent);
 
         $view = $this->bread->getReadView();
-        if (view()->exists("versatile::{$slug}.read")) {
-            $view = "versatile::{$slug}.read";
+        if (view()->exists("versatile::{$this->bread->slug}.read")) {
+            $view = "versatile::{$this->bread->slug}.read";
         }
 
         return Versatile::view($view, [
-            'dataType' => $dataType,
+            'dataType' => $this->bread,
             'dataTypeContent' => $dataTypeContent,
             'isModelTranslatable' => $isModelTranslatable
         ]);

@@ -288,6 +288,8 @@ class UsersBread extends AbstractBreadSeeder
 
     public function extras()
     {
+        $faker = \Faker\Factory::create();
+
         if (User::count() == 0) {
             User::insert([
                 'name' => 'Admin',
@@ -295,25 +297,8 @@ class UsersBread extends AbstractBreadSeeder
                 'password' => bcrypt('123456'),
                 'remember_token' => str_random(60),
                 'role_id' => 1,
+                'created_at' => $faker->dateTime()
             ]);
-
-            User::insert([
-                'name' => 'Demo',
-                'email' => 'demo@demo.com',
-                'password' => bcrypt('123456'),
-                'remember_token' => str_random(60),
-                'role_id' => 1,
-            ]);
-
-/*             for ($i=0; $i < 100; $i++) { 
-                User::insert([
-                    'name' => 'User Demo - ' . $i,
-                    'email' => 'demo' . $i . '@demo.com',
-                    'password' => bcrypt('123456'),
-                    'remember_token' => str_random(60),
-                    'role_id' => 2,
-                ]);
-            } */
         }
     }
 }

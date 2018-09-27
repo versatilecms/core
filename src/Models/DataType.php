@@ -2,9 +2,7 @@
 
 namespace Versatile\Core\Models;
 
-use Versatile\Core\Models\BaseModel;
 use Illuminate\Support\Facades\DB;
-use Versatile\Core\Database\Schema\SchemaManager;
 use Versatile\Core\Facades\Versatile;
 use Versatile\Core\Traits\Translatable;
 use Versatile\Core\Contracts\DataTypeInterface;
@@ -36,54 +34,12 @@ class DataType extends BaseModel implements DataTypeInterface
     ];
 
     protected $casts = [
-        'details' => 'object',
+        'details' => 'array',
     ];
-
-    /**
-     * Checks if Model is searchable
-     *
-     * @return bool
-     */
-    public function getIsSearchableAttribute()
-    {
-        return property_exists($this->model_name, 'searchable');
-    }
 
     public function rows()
     {
         return $this->hasMany(Versatile::modelClass('DataRow'))->orderBy('order');
-    }
-
-    public function browseRows()
-    {
-        return $this->rows()->where('browse', 1);
-    }
-
-    public function readRows()
-    {
-        return $this->rows()->where('read', 1);
-    }
-
-    public function editRows()
-    {
-        return $this->rows()->where('edit', 1);
-    }
-
-    public function addRows()
-    {
-        return $this->rows()->where('add', 1);
-    }
-
-    public function deleteRows()
-    {
-        return $this->rows()->where('delete', 1);
-    }
-
-    public function lastRow()
-    {
-        return $this->hasMany(Versatile::modelClass('DataRow'))
-            ->orderBy('order', 'DESC')
-            ->first();
     }
 
     public function setGeneratePermissionsAttribute($value)
@@ -183,36 +139,6 @@ class DataType extends BaseModel implements DataTypeInterface
         }
 
         return $requestData;
-    }
-
-    public function fields($name = null)
-    {
-        if (is_null($name)) {
-            $name = $this->name;
-        }
-
-        $fields = SchemaManager::listTableColumnNames($name);
-
-        return $fields;
-    }
-
-    public function fieldOptions()
-    {
-        $table = $this->name;
-
-        // Get ordered BREAD fields
-        $orderedFields = $this->rows()->pluck('field')->toArray();
-
-        $_fieldOptions = SchemaManager::describeTable($table)->toArray();
-
-        $fieldOptions = [];
-        $f_size = count($orderedFields);
-        for ($i = 0; $i < $f_size; $i++) {
-            $fieldOptions[$orderedFields[$i]] = $_fieldOptions[$orderedFields[$i]];
-        }
-        $fieldOptions = collect($fieldOptions);
-
-        return $fieldOptions;
     }
 
     public function getOrderColumnAttribute()

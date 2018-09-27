@@ -12,28 +12,24 @@ trait Edit
     /**
      * Edit an item of our Data Type BR(E)AD
      *
-     * @param Request $request
      * @param $id
      * @return mixed
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function edit(Request $request, $id)
+    public function edit($id)
     {
-        // Get the slug, ex. 'posts', 'pages', etc.
-        $dataType = $this->bread;
-        $slug = $this->bread->slug;
         $model = $this->bread->getModel();
 
-        $relationships = $this->getRelationships($dataType);
+        $relationships = $this->getRelationships($this->bread);
         $dataTypeContent = $model->with($relationships)->findOrFail($id);
 
-        foreach ($dataType->editRows as $key => &$row) {
+        foreach ($this->bread->editRows as $key => &$row) {
             $details = $row->details;
             $row->col_width = isset($details->width) ? $details->width : 100;
         }
 
         // If a column has a relationship associated with it, we do not want to show that field
-        $this->removeRelationshipField($dataType, 'edit');
+        $this->removeRelationshipField($this->bread, 'edit');
 
         // Check permission
         $this->authorize('edit', $dataTypeContent);
@@ -42,12 +38,12 @@ trait Edit
         $isModelTranslatable = is_bread_translatable($dataTypeContent);
 
         $view = $this->bread->getEditView();
-        if (view()->exists("versatile::{$slug}.edit-add")) {
-            $view = "versatile::{$slug}.edit-add";
+        if (view()->exists("versatile::{$this->bread->slug}.edit-add")) {
+            $view = "versatile::{$this->bread->slug}.edit-add";
         }
 
         return Versatile::view($view, [
-            'dataType' => $dataType,
+            'dataType' => $this->bread,
             'dataTypeContent' => $dataTypeContent,
             'isModelTranslatable' => $isModelTranslatable
         ]);
@@ -63,9 +59,6 @@ trait Edit
      */
     public function update(Request $request, $id)
     {
-        // Get the slug, ex. 'posts', 'pages', etc.
-        $dataType = $this->bread;
-        $slug = $this->bread->slug;
         $model = $this->bread->getModel();
 
         // Compatibility with Model binding.
@@ -79,21 +72,21 @@ trait Edit
         $this->authorize('edit', $data);
 
         // Validate fields with ajax
-        $val = $this->validateBread($request->all(), $dataType->editRows, $dataType->name, $id);
+        $val = $this->validateBread($request->all(), $this->bread->editRows, $this->bread->name, $id);
 
         if ($val->fails()) {
             return response()->json(['errors' => $val->messages()]);
         }
 
         if (!$request->ajax()) {
-            $this->insertUpdateData($request, $slug, $dataType->editRows, $data);
+            $this->insertUpdateData($request, $this->bread->slug, $this->bread->editRows, $data);
 
-            event(new BreadDataUpdated($dataType, $data));
+            event(new BreadDataUpdated($this->bread, $data));
 
             return redirect()
-                ->route("versatile.{$dataType->slug}.index")
+                ->route("versatile.{$this->bread->slug}.index")
                 ->with([
-                    'message' => __('versatile::generic.successfully_updated') . " {$dataType->display_name_singular}",
+                    'message' => __('versatile::generic.successfully_updated') . " {$this->bread->display_name_singular}",
                     'alert-type' => 'success',
                 ]);
         }

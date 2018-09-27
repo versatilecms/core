@@ -2,6 +2,8 @@
 
 namespace Versatile\Core\Bread;
 
+use Versatile\Core\Models\DataType as DataTypeModel;
+
 use Versatile\Core\Bread\Traits\Actions;
 use Versatile\Core\Bread\Traits\Fields;
 use Versatile\Core\Bread\Traits\Filters;
@@ -34,11 +36,30 @@ class DataType implements DataTypeInterface
     public $policy;
 
 
+    public function setDataType(DataTypeModel $dataType)
+    {
+        $this->name = $dataType->name;
+        $this->slug = $dataType->slug;
+
+        $this->setDisplayName($dataType->display_name_singular, $dataType->display_name_plural);
+        $this->setIcon($dataType->icon);
+        $this->setModel($dataType->model_name);
+
+        if ($dataType->policy_name) {
+            $this->setPolicy($dataType->policy_name);
+        }
+
+        $this->addDataRows($dataType->rows()->get()->toArray());
+
+        return $this;
+    }
+
     /**
      * This function binds the BREAD to its corresponding Model.
      *
      * @param string $model_namespace Full model namespace. Ex: App\Models\User
      * @throws \Exception in case the model does not exist
+     * @return $this
      */
     public function setModel($model_namespace)
     {
@@ -48,8 +69,6 @@ class DataType implements DataTypeInterface
 
         $this->model = app($model_namespace);
         $this->model_name = $model_namespace;
-        //$this->query = $this->model->select('*');
-        //$this->entry = null;
 
         return $this;
     }
@@ -78,16 +97,6 @@ class DataType implements DataTypeInterface
     public function getPolicy()
     {
         return $this->policy;
-    }
-
-    public function getDataTypeSlug($request = null)
-    {
-        return $this->slug;
-    }
-
-    public function getDataType($dataTypeSlug = null)
-    {
-        return $this;
     }
 
     public function __get($name)

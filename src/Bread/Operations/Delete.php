@@ -22,8 +22,6 @@ trait Delete
      */
     public function destroy(Request $request, $id)
     {
-        // Get the slug, ex. 'posts', 'pages', etc.
-        $dataType = $this->bread;
         $model = $this->bread->getModel();
 
         // Check permission
@@ -40,10 +38,10 @@ trait Delete
         }
         foreach ($ids as $id) {
             $data = call_user_func([$model, 'findOrFail'], $id);
-            $this->cleanup($dataType, $data);
+            $this->cleanup($this->bread, $data);
         }
 
-        $displayName = count($ids) > 1 ? $dataType->display_name_plural : $dataType->display_name_singular;
+        $displayName = count($ids) > 1 ? $this->bread->display_name_plural : $this->bread->display_name_singular;
 
         $res = $data->destroy($ids);
 
@@ -58,10 +56,10 @@ trait Delete
                 'alert-type' => 'success',
             ];
 
-            event(new BreadDataDeleted($dataType, $data));
+            event(new BreadDataDeleted($this->bread, $data));
         }
 
-        return redirect()->route("versatile.{$dataType->slug}.index")->with($data);
+        return redirect()->route("versatile.{$this->bread->slug}.index")->with($data);
     }
 
     /**

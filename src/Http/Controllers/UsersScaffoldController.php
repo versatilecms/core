@@ -22,7 +22,6 @@ class UsersScaffoldController extends DataTypeController
 {
 	public function setup()
 	{
-
 		$this->bread->name = 'scaffold';
 		$this->bread->slug = 'scaffold';
 

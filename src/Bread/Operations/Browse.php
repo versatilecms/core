@@ -17,11 +17,7 @@ trait Browse
      */
     public function index(Request $request)
     {
-        // Get the slug, ex. 'posts', 'pages', etc.
-        $dataType = $this->bread;
-        $slug = $this->bread->slug;
         $model = $this->bread->getModel();
-
         $filters = $this->bread->getFilters();
         $actions = $this->bread->getActions();
 
@@ -38,7 +34,7 @@ trait Browse
         // $model = $model::select('*')->with($relationships);
 
         // If a column has a relationship associated with it, we do not want to show that field
-        $this->removeRelationshipField($dataType, 'browse');
+        $this->removeRelationshipField($this->bread, 'browse');
 
         $dataTypeContent = QueryBuilder::for($model->query(), $request)
             ->apply($filters);
@@ -51,7 +47,7 @@ trait Browse
         $dataTypeContent = $dataTypeContent->$getter();
 
         // Replace relationships' keys for labels and create READ links if a slug is provided.
-        $dataTypeContent = $this->resolveRelations($dataTypeContent, $dataType);
+        $dataTypeContent = $this->resolveRelations($dataTypeContent, $this->bread);
 
         // Check if BREAD is Translatable
         if (($isModelTranslatable = is_bread_translatable($model))) {
@@ -59,14 +55,14 @@ trait Browse
         }
 
         $view = $this->bread->getBrowseView();
-        if (view()->exists("versatile::{$slug}.browse")) {
-            $view = "versatile::{$slug}.browse";
+        if (view()->exists("versatile::{$this->bread->slug}.browse")) {
+            $view = "versatile::{$this->bread->slug}.browse";
         }
 
         return Versatile::view($view, [
             'filters' => $filters,
             'actions' => $actions,
-            'dataType' => $dataType,
+            'dataType' => $this->bread,
             'dataTypeContent' => $dataTypeContent,
             'isModelTranslatable' => $isModelTranslatable,
             'orderBy' => $orderBy,

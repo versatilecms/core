@@ -19,8 +19,6 @@ use Versatile\Core\Components\ContentTypes\Relationship;
 use Versatile\Core\Components\ContentTypes\SelectMultiple;
 use Versatile\Core\Components\ContentTypes\Text;
 use Versatile\Core\Components\ContentTypes\Timestamp;
-use Versatile\Core\Http\Controllers\Traits\Actions;
-use Versatile\Core\Http\Controllers\Traits\Filters;
 use Versatile\Core\Models\DataType;
 use Versatile\Core\Traits\AlertsMessages;
 use Validator;
@@ -31,63 +29,6 @@ abstract class Controller extends BaseController
     use ValidatesRequests;
     use AuthorizesRequests;
     use AlertsMessages;
-
-    use Actions;
-    use Filters;
-
-    /**
-     * Controller constructor.
-     */
-    public function __construct()
-    {
-        $this->defineActionsFormat();
-    }
-
-    /**
-     * @param Request $request
-     * @return null|string
-     */
-    public function getDataTypeSlug(Request $request)
-    {
-        if(!is_null($this->dataTypeSlug)) {
-            return $this->dataTypeSlug;
-        }
-
-        $slug = explode('.', $request->route()->getName());
-
-        if (isset($slug[1])) {
-            return $slug[1];
-        }
-
-        return null;
-    }
-
-    /**
-     * @param $dataTypeSlug
-     * @return \Illuminate\Database\Eloquent\Model
-     */
-    public function getDataType($dataTypeSlug)
-    {
-        // Get the DataType based on the slug
-        if (is_null($this->dataType)) {
-            return DataType::where('slug', '=', $dataTypeSlug)->first();
-        }
-
-        return $this->dataType;
-    }
-
-    /**
-     * @param DataType $dataType
-     * @return \Illuminate\Database\Eloquent\Model
-     */
-    public function getModel($dataType)
-    {
-        if (is_null($this->model)) {
-            return app($dataType->model_name);
-        }
-
-        return app($this->model);
-    }
 
     public function insertUpdateData($request, $slug, $rows, $data)
     {
@@ -285,6 +226,7 @@ abstract class Controller extends BaseController
         }
     }
 
+
     /**
      * Get fields having validation rules in proper format.
      *
@@ -301,7 +243,7 @@ abstract class Controller extends BaseController
 
             $decoded = $value->details;
 
-            return !empty($decoded->validation['rule']);
+            return !empty($decoded->validation->rule);
         });
     }
 

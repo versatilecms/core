@@ -10,43 +10,39 @@ trait Order
     /**
      * Order BREAD items.
      *
-     * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function order(Request $request)
+    public function order()
     {
-        // Get the slug, ex. 'posts', 'pages', etc.
-        $dataType = $this->bread;
-        $slug = $this->bread->slug;
         $model = $this->bread->getModel();
 
         // Check permission
         $this->authorize('edit', $model);
 
-        if (!isset($dataType->order_column) || !isset($dataType->order_display_column)) {
+        if (!isset($this->bread->order_column) || !isset($this->bread->order_display_column)) {
             return redirect()
-                ->route("versatile.{$dataType->slug}.index")
+                ->route("versatile.{$this->bread->slug}.index")
                 ->with([
                     'message' => __('versatile::bread.ordering_not_set'),
                     'alert-type' => 'error',
                 ]);
         }
 
-        $results = $model->orderBy($dataType->order_column)->get();
+        $results = $model->orderBy($this->bread->order_column)->get();
 
-        $display_column = $dataType->order_display_column;
+        $display_column = $this->bread->order_display_column;
 
         $view = $this->bread->getOrderView();
-        if (view()->exists("versatile::{$slug}.order")) {
-            $view = "versatile::{$slug}.order";
+        if (view()->exists("versatile::{$this->bread->slug}.order")) {
+            $view = "versatile::{$this->bread->slug}.order";
         }
 
-        return Versatile::view($view, compact(
-            'dataType',
-            'display_column',
-            'results'
-        ));
+        return Versatile::view($view, [
+            'dataType' => $this->bread,
+            'display_column' => $display_column,
+            'results' => $results
+        ]);
     }
 
     /**
@@ -55,15 +51,13 @@ trait Order
      */
     public function updateOrder(Request $request)
     {
-        // Get the slug, ex. 'posts', 'pages', etc.
-        $dataType = $this->bread;
         $model = $this->bread->getModel();
 
         // Check permission
         $this->authorize('edit', $model);
 
         $order = json_decode($request->input('order'));
-        $column = $dataType->order_column;
+        $column = $this->bread->order_column;
         foreach ($order as $key => $item) {
             $i = $model->findOrFail($item->id);
             $i->$column = ($key + 1);

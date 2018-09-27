@@ -17,9 +17,12 @@ trait BreadRelationship
             if ($row->type == 'relationship') {
 
                 $options = $row->details;
+                if (is_string($options)) {
+                    $options = json_decode($options);
+                }
 
                 if ($options->type == 'belongsTo') {
-                    $relationshipField = @$options->column;
+                    $relationshipField = $options->column;
                     $keyInCollection = key($dataType->{$breadType.'Rows'}->where('field', '=', $relationshipField)->toArray());
                     array_push($forgetKeys, $keyInCollection);
                 }
@@ -45,6 +48,9 @@ trait BreadRelationship
         $dataType->browseRows->each(function ($item) use (&$relationships) {
 
             $details = $item->details;
+            if (is_string($details)) {
+                $details = json_decode($details);
+            }
 
             if (isset($details->relationship) && isset($item->field)) {
                 $relation = $details->relationship;

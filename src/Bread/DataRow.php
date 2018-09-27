@@ -23,7 +23,8 @@ class DataRow
         foreach ($dataRow as $property => $value) {
 
             if (!property_exists($this, $property)) {
-                throw new \Exception("This property {$property} does not exist");
+                //throw new \Exception("This property {$property} does not exist");
+                continue;
             }
 
             if ($property == 'details' && is_array($value)) {
