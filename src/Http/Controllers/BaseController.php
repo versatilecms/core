@@ -3,8 +3,11 @@
 namespace Versatile\Core\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Versatile\Core\Bread\DataType;
+use Illuminate\Support\Facades\Gate;
+use Versatile\Core\Policies\BasePolicy;
 
+use Versatile\Core\Bread\DataType;
+use Versatile\Core\Bread\Traits\BreadRelationship;
 use Versatile\Core\Models\DataType as DataTypeModel;
 use Versatile\Core\Http\Controllers\Operations\Add;
 use Versatile\Core\Http\Controllers\Operations\Browse;
@@ -13,7 +16,6 @@ use Versatile\Core\Http\Controllers\Operations\Edit;
 use Versatile\Core\Http\Controllers\Operations\Order;
 use Versatile\Core\Http\Controllers\Operations\Read;
 
-use Versatile\Core\Bread\Traits\BreadRelationship;
 
 class BaseController extends Controller
 {
@@ -39,6 +41,7 @@ class BaseController extends Controller
      */
     public $bread;
 
+
     use Add;
     use Browse;
     use Delete;
@@ -47,6 +50,40 @@ class BaseController extends Controller
     use Read;
     use BreadRelationship;
 
+    public function __construct()
+    {
+        if (!$this->bread) {
+
+            $this->bread = app()->make(DataType::class);
+
+            if ($this->dataTypeFromDatabase === true) {
+                $dataType = $this->getDataTypeModelInstance();
+                $this->bread->setDataType($dataType);
+            }
+
+            $this->setup();
+            $this->registerPolicies();
+        }
+
+        $this->bread->defineActionsFormat();
+
+    }
+
+    /**
+     * Register the application's policies.
+     *
+     * @return void
+     */
+    public function registerPolicies()
+    {
+        if (!$this->bread->policies) {
+            $this->bread->policies[$this->bread->model_name] = BasePolicy::class;
+        }
+
+        foreach ($this->bread->policies as $model => $policy) {
+            Gate::policy($model, $policy);
+        }
+    }
 
     /**
      * Gets the instance of the DataType model
@@ -73,24 +110,6 @@ class BaseController extends Controller
         }
 
         return $dataType;
-    }
-
-    public function __construct()
-    {
-        if (!$this->bread) {
-
-            $this->bread = app()->make(DataType::class);
-
-            if ($this->dataTypeFromDatabase === true) {
-                $dataType = $this->getDataTypeModelInstance();
-                $this->bread->setDataType($dataType);
-            }
-
-            $this->setup();
-        }
-
-        $this->bread->defineActionsFormat();
-
     }
 
     /**

@@ -34,10 +34,25 @@ Route::group([
     ]);
 
     // Password Reset Routes...
-    Route::get('password/reset', ['uses' => $namespacePrefix.'Auth\ForgotPasswordController@showLinkRequestForm', 'as' => 'password.request']);
-    Route::post('password/email', ['uses' => $namespacePrefix.'Auth\ForgotPasswordController@sendResetLinkEmail', 'as' => 'password.email']);
-    Route::get('password/reset/{token}', ['uses' => $namespacePrefix.'Auth\ResetPasswordController@showResetForm', 'as' => 'password.reset']);
-    Route::post('password/reset', ['uses' => $namespacePrefix.'Auth\ResetPasswordController@reset', 'as' => 'password.reset.submit']);
+    Route::get('password/reset', [
+        'uses' => $namespacePrefix.'Auth\ForgotPasswordController@showLinkRequestForm',
+        'as' => 'password.request'
+    ]);
+
+    Route::post('password/email', [
+        'uses' => $namespacePrefix.'Auth\ForgotPasswordController@sendResetLinkEmail',
+        'as' => 'password.email'
+    ]);
+
+    Route::get('password/reset/{token}', [
+        'uses' => $namespacePrefix.'Auth\ResetPasswordController@showResetForm',
+        'as' => 'password.reset'
+    ]);
+
+    Route::post('password/reset', [
+        'uses' => $namespacePrefix.'Auth\ResetPasswordController@reset',
+        'as' => 'password.reset.submit'
+    ]);
 
     Route::post('users/impersonate/{originalId}', [
         'uses' => "{$namespacePrefix}UsersController@revertImpersonate",
@@ -94,21 +109,15 @@ Route::group([
 
 
         // Tests Scaffold
-        Route::resource('scaffold', $namespacePrefix . 'UsersScaffoldController');
-        Route::get('scaffold/impersonate/{userId}', [
-            'uses' => "{$namespacePrefix}UsersController@impersonate",
-            'as' => 'scaffold.impersonate'
-        ]);
-
-
-        // Role Routes
-        Route::resource('roles', $namespacePrefix . 'RoleController');
-
-
+        Route::resource('users', $namespacePrefix . 'UsersController');
         Route::get('users/impersonate/{userId}', [
             'uses' => "{$namespacePrefix}UsersController@impersonate",
             'as' => 'users.impersonate'
         ]);
+
+
+        // Role Routes
+        Route::resource('roles', $namespacePrefix . 'RolesController');
 
         // Menu Routes
         Route::group([

@@ -3,26 +3,28 @@
 namespace Versatile\Core\Http\Controllers\Tools;
 
 use Illuminate\Http\Request;
-use Versatile\Core\Facades\Versatile;
 
+use Versatile\Core\Models\Menu;
+use Versatile\Core\Models\MenuItem;
+use Versatile\Core\Facades\Versatile;
 use Versatile\Core\Http\Controllers\Controller;
 
 class MenuController extends Controller
 {
     public function builder($id)
     {
-        $menu = Versatile::model('Menu')->findOrFail($id);
+        $menu = Menu::findOrFail($id);
 
         $this->authorize('edit', $menu);
 
-        $isModelTranslatable = is_bread_translatable(Versatile::model('MenuItem'));
+        $isModelTranslatable = is_bread_translatable(app(MenuItem::class));
 
         return Versatile::view('versatile::menus.builder', compact('menu', 'isModelTranslatable'));
     }
 
     public function delete_menu($menu, $id)
     {
-        $item = Versatile::model('MenuItem')->findOrFail($id);
+        $item = MenuItem::findOrFail($id);
 
         $this->authorize('delete', $item);
 
@@ -40,7 +42,7 @@ class MenuController extends Controller
 
     public function add_item(Request $request)
     {
-        $menu = Versatile::model('Menu');
+        $menu = app(Menu::class);
 
         $this->authorize('add', $menu);
 
@@ -49,16 +51,16 @@ class MenuController extends Controller
         );
 
         unset($data['id']);
-        $data['order'] = Versatile::model('MenuItem')->highestOrderMenuItem();
+        $data['order'] = app(MenuItem::class)->highestOrderMenuItem();
 
         // Check if is translatable
-        $_isTranslatable = is_bread_translatable(Versatile::model('MenuItem'));
+        $_isTranslatable = is_bread_translatable(app(MenuItem::class));
         if ($_isTranslatable) {
             // Prepare data before saving the menu
             $trans = $this->prepareMenuTranslations($data);
         }
 
-        $menuItem = Versatile::model('MenuItem')->create($data);
+        $menuItem = MenuItem::create($data);
 
         // Save menu translations
         if ($_isTranslatable) {
@@ -80,7 +82,7 @@ class MenuController extends Controller
             $request->except(['id'])
         );
 
-        $menuItem = Versatile::model('MenuItem')->findOrFail($id);
+        $menuItem = MenuItem::findOrFail($id);
 
         $this->authorize('edit', $menuItem->menu);
 
@@ -111,7 +113,7 @@ class MenuController extends Controller
     private function orderMenu(array $menuItems, $parentId)
     {
         foreach ($menuItems as $index => $menuItem) {
-            $item = Versatile::model('MenuItem')->findOrFail($menuItem->id);
+            $item = MenuItem::findOrFail($menuItem->id);
             $item->order = $index + 1;
             $item->parent_id = $parentId;
             $item->save();

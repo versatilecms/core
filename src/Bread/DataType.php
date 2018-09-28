@@ -32,9 +32,8 @@ class DataType implements DataTypeInterface
     public $order_column;
     public $order_display_column;
 
+    public $policies = [];
     public $model;
-    public $policy;
-
 
     public function setDataType(DataTypeModel $dataType)
     {
@@ -45,7 +44,7 @@ class DataType implements DataTypeInterface
         $this->setModel($dataType->model_name);
 
         if ($dataType->policy_name) {
-            $this->setPolicy($dataType->policy_name);
+            $this->addPolicy($dataType->model_name, $dataType->policy_name);
         }
 
         $this->addDataRows($dataType->rows()->get()->toArray());
@@ -92,21 +91,27 @@ class DataType implements DataTypeInterface
         return $this->model;
     }
 
-    public function setPolicy($policy_namespace)
+    /**
+     * Add the application's policies.
+     *
+     * @param string $model
+     * @param string $policy
+     * @return $this
+     * @throws \Exception
+     */
+    public function addPolicy($model, $policy)
     {
-        if (!class_exists($policy_namespace)) {
+        if (!class_exists($model)) {
+            throw new \Exception('This model does not exist');
+        }
+
+        if (!class_exists($policy)) {
             throw new \Exception('This policy does not exist');
         }
 
-        $this->policy = app($policy_namespace);
-        $this->policy_name = $policy_namespace;
+        $this->policies[$model] = $policy;
 
         return $this;
-    }
-
-    public function getPolicy()
-    {
-        return $this->policy;
     }
 
     public function __get($name)

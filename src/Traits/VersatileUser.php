@@ -3,7 +3,6 @@
 namespace Versatile\Core\Traits;
 
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
-use Versatile\Core\Facades\Versatile;
 use Versatile\Core\Models\Role;
 use Versatile\Core\Notifications\PasswordResetNotification;
 
@@ -17,7 +16,7 @@ trait VersatileUser
      */
     public function role()
     {
-        return $this->belongsTo(Versatile::modelClass('Role'));
+        return $this->belongsTo(Role::class);
     }
 
     /**
@@ -25,7 +24,7 @@ trait VersatileUser
      */
     public function roles()
     {
-        return $this->belongsToMany(Versatile::modelClass('Role'), 'user_roles');
+        return $this->belongsToMany(Role::class, 'user_roles');
     }
 
     /**
@@ -65,7 +64,7 @@ trait VersatileUser
      */
     public function setRole($name)
     {
-        $role = Versatile::model('Role')->where('name', '=', $name)->first();
+        $role = Role::where('name', '=', $name)->first();
 
         if ($role) {
             $this->role()->associate($role);

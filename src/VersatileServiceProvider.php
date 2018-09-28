@@ -11,6 +11,7 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Gate;
 
 use Intervention\Image\ImageServiceProvider;
 use Larapack\DoctrineSupport\DoctrineSupportServiceProvider;
@@ -124,7 +125,7 @@ class VersatileServiceProvider extends ServiceProvider
 
         $this->loadMigrationsFrom($this->packagePath . 'database/migrations');
 
-        $this->registerGates();
+        $this->registerPolicies();
 
         $this->registerViewComposers();
 
@@ -133,6 +134,20 @@ class VersatileServiceProvider extends ServiceProvider
         });
 
         $this->bootTranslatorCollectionMacros();
+    }
+
+    /**
+     * Register the application's policies.
+     *
+     * @return void
+     */
+    public function registerPolicies()
+    {
+        $policies = config('versatile.policies');
+
+        foreach ($policies as $class => $policy) {
+            Gate::policy($class, $policy);
+        }
     }
 
     /**
@@ -266,37 +281,6 @@ class VersatileServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             $this->packagePath . 'config/versatile.php', 'versatile'
         );
-    }
-
-    public function registerGates()
-    {
-        // This try catch is necessary for the Package Auto-discovery
-        // otherwise it will throw an error because no database
-        // connection has been made yet.
-        try {
-            if (Schema::hasTable('data_types')) {
-                $dataType = VersatileFacade::model('DataType');
-                $dataTypes = $dataType->select('policy_name', 'model_name')->get();
-
-                $policyClass = BasePolicy::class;
-
-                foreach ($dataTypes as $dataType) {
-                    if (
-                        isset($dataType->policy_name) &&
-                        $dataType->policy_name !== '' &&
-                        class_exists($dataType->policy_name)
-                    ) {
-                        $policyClass = $dataType->policy_name;
-                    }
-
-                    $this->policies[$dataType->model_name] = $policyClass;
-                }
-
-                $this->registerPolicies();
-            }
-        } catch (\PDOException $e) {
-            Log::error('No Database connection yet in VersatileServiceProvider registerGates()');
-        }
     }
 
     protected function registerFields()

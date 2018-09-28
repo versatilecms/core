@@ -14,7 +14,7 @@ class DataRow extends BaseModel
     public $timestamps = false;
 
     protected $casts = [
-        'details' => 'object',
+        'details' => 'array',
     ];
 
     /**

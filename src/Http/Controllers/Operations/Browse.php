@@ -30,7 +30,7 @@ trait Browse
         $sortOrder = $request->get('sort_order', null);
 
         // @TODO Refactor: Method apparently of no relevance
-        // $relationships = $this->getRelationships($dataType);
+        // $relationships = $this->getRelationships($this->bread);
         // $model = $model::select('*')->with($relationships);
 
         // If a column has a relationship associated with it, we do not want to show that field

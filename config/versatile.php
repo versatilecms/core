@@ -59,6 +59,21 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Policy config
+    |--------------------------------------------------------------------------
+    |
+    | Here you can register the standard application policies
+    |
+    */
+
+    'policies' => [
+        \Versatile\Core\Models\User::class  => \Versatile\Core\Policies\UserPolicy::class,
+        \Versatile\Core\Models\Setting::class  => \Versatile\Core\Policies\SettingPolicy::class,
+        \Versatile\Core\Models\MenuItem::class => \Versatile\Core\Policies\MenuItemPolicy::class,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Storage Config
     |--------------------------------------------------------------------------
     |

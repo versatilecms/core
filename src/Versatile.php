@@ -102,27 +102,6 @@ class Versatile
         $this->viewLoadingEvents[$name][] = $closure;
     }
 
-    /**
-     * Get a collection of the dashboard widgets.
-     *
-     * @return \Arrilot\Widgets\WidgetGroup
-     */
-    // public function dimmers()
-    // {
-    //     $widgetClasses = config('versatile.dashboard.widgets');
-    //     $dimmers = Widget::group('versatile::dimmers');
-
-    //     foreach ($widgetClasses as $widgetClass) {
-    //         $widget = app($widgetClass);
-
-    //         if ($widget->shouldBeDisplayed()) {
-    //             $dimmers->addWidget($widgetClass);
-    //         }
-    //     }
-
-    //     return $dimmers;
-    // }
-
     public function setting($key, $default = null)
     {
         if ($this->setting_cache === null) {

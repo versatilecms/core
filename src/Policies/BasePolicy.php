@@ -4,7 +4,6 @@ namespace Versatile\Core\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Versatile\Core\Contracts\UserInterface;
-use Versatile\Core\Facades\Versatile;
 
 class BasePolicy
 {
@@ -45,13 +44,6 @@ class BasePolicy
      */
     protected function checkPermission(UserInterface $user, $model, $action)
     {
-        if (!isset(self::$datatypes[get_class($model)])) {
-            $dataType = Versatile::model('DataType');
-            self::$datatypes[get_class($model)] = $dataType->where('model_name', get_class($model))->first();
-        }
-
-        $dataType = self::$datatypes[get_class($model)];
-
-        return $user->hasPermission($action.'_'.$dataType->name);
+        return $user->hasPermission($action.'_'.$model->getTable());
     }
 }

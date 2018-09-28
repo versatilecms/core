@@ -246,17 +246,4 @@ abstract class Controller extends BaseController
             return !empty($decoded->validation->rule);
         });
     }
-
-    /**
-     * Delete file if exists
-     *
-     * @param $path
-     */
-    public function deleteFileIfExists($path)
-    {
-        if (Storage::disk(config('versatile.storage.disk'))->exists($path)) {
-            Storage::disk(config('versatile.storage.disk'))->delete($path);
-            event(new FileDeleted($path));
-        }
-    }
 }
