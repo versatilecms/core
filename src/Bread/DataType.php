@@ -38,9 +38,8 @@ class DataType implements DataTypeInterface
 
     public function setDataType(DataTypeModel $dataType)
     {
-        $this->name = $dataType->name;
-        $this->slug = $dataType->slug;
-
+        $this->setName($dataType->name);
+        $this->setSlug($dataType->slug);
         $this->setDisplayName($dataType->display_name_singular, $dataType->display_name_plural);
         $this->setIcon($dataType->icon);
         $this->setModel($dataType->model_name);
@@ -53,6 +52,17 @@ class DataType implements DataTypeInterface
 
         return $this;
     }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+
 
     /**
      * This function binds the BREAD to its corresponding Model.

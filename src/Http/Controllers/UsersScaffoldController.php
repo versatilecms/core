@@ -3,8 +3,8 @@
 namespace Versatile\Core\Http\Controllers;
 
 use Auth;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-
 
 use Versatile\Core\Facades\Versatile;
 
@@ -12,19 +12,24 @@ use Versatile\Core\Models\User;
 use Versatile\Core\Policies\UserPolicy;
 use Versatile\Core\Models\Role;
 
-use Versatile\Core\Bread\DataTypeController;
-
 use Versatile\Core\Components\Filters\Users\CreatedAtFilter;
 use Versatile\Core\Components\Filters\Users\RoleFilter;
 use Versatile\Core\Components\Filters\Users\RolesFilter;
 use Versatile\Core\Components\Actions\Handlers\ImpersonateAction;
 
-class UsersScaffoldController extends DataTypeController
+class UsersScaffoldController extends BaseController
 {
+    /**
+     * Informs if DataType will be loaded from the database or setup
+     *
+     * @var bool
+     */
+    protected $dataTypeFromDatabase = false;
+
 	public function setup()
 	{
-		$this->bread->name = 'scaffold';
-		$this->bread->slug = 'scaffold';
+		$this->bread->setName('scaffold');
+		$this->bread->setSlug ('scaffold');
 
         $this->bread->setDisplayName('User', 'Users');
 		$this->bread->setIcon('versatile-person');
@@ -274,14 +279,7 @@ class UsersScaffoldController extends DataTypeController
                 //'order' => 9,
             ]
         ]);
-
-        //$this->bread->setAddView('versatile::bread.add');
 	}
-
-    // public function index(Request $request)
-    // {
-    //     dd($this->bread->getAddView);
-    // }
 
     /**
      * Impersonate a user as an administrator

@@ -24,7 +24,6 @@ class UsersController extends BaseController
             RolesFilter::class,
             CreatedAtFilter::class
         ]);
-
     }
 
     /**

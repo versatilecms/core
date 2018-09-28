@@ -1,6 +1,6 @@
 <?php
 
-namespace Versatile\Core\Bread\Operations;
+namespace Versatile\Core\Http\Controllers\Operations;
 
 use Illuminate\Http\Request;
 use Versatile\Core\Facades\Versatile;
