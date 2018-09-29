@@ -45,23 +45,7 @@
                             {!! form_fields($dataTypeRows, $dataTypeContent, ['name', 'email', 'password']) !!}
 
                             @can('editRoles', $dataTypeContent)
-
-                                <div class="form-group col-md-12">
-                                    <label for="default_role">{{ __('versatile::profile.role_default') }}</label>
-                                    @php
-                                        $row = $dataTypeRows->where('field', 'user_belongsto_role_relationship')->first();
-                                        $options = $row->details;
-                                    @endphp
-                                    @include('versatile::_components.fields.form.relationship')
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label for="additional_roles">{{ __('versatile::profile.roles_additional') }}</label>
-                                    @php
-                                        $row = $dataTypeRows->where('field', 'user_belongstomany_role_relationship')->first();
-                                        $options = $row->details;
-                                    @endphp
-                                    @include('versatile::_components.fields.form.relationship')
-                                </div>
+                                {!! form_fields($dataTypeRows, $dataTypeContent, ['role_id', 'user_roles']) !!}
                             @endcan
 
                             {!! form_fields($dataTypeRows, $dataTypeContent, ['locale']) !!}

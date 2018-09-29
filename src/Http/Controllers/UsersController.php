@@ -178,18 +178,7 @@ class UsersController extends BaseController
                 'delete' => false,
                 'details' => [],
             ],
-//            [
-//                'field' => 'role_id',
-//                'type' => 'text',
-//                'display_name' => __('versatile::seeders.data_rows.role'),
-//                'required' => true,
-//                'browse' => true,
-//                'read' => true,
-//                'edit' => true,
-//                'add' => true,
-//                'delete' => true,
-//                'details' => [],
-///            ],
+
             [
                 'field' => 'role_id',
                 'type' => 'relationship',

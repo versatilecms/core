@@ -1,12 +1,13 @@
 # Versatile Core
 
-Laravel Admin & BREAD System (Browse, Read, Edit, Add, & Delete), supporting Laravel 5.4, 5.5 and 5.6!
+Laravel Admin & BREAD System (Browse, Read, Edit, Add, & Delete), supporting Laravel 5.4, 5.5, 5.6 and 5.7!
 
 Disclaimer (pt_BR)
 ==========
 Este repositório é uma versão modificada do pacote [tcg/voyager](https://github.com/the-control-group/voyager). Diversas mudanças foram realizadas para uma melhor integração com as demais libs do projeto [Versatile](https://github.com/versatilecms).
 
 ## Algumas das principais mudanças:
+- BREADS agora podem ser construídos a partir de configuração `setup` diretamente no controller, além do Tool Bread que já existia no painel.
 - Atualização da interface do painel
 - Separação do módulo de páginas
 - Separação do módulo de posts
@@ -18,7 +19,7 @@ Este repositório é uma versão modificada do pacote [tcg/voyager](https://gith
 - Registro de usuários
 - Atualização dos componentes de forms
 - Padronização dos `BreadsSeeders`
-- Implementação do pacote [versatilelibs/laravel-searchable](https://github.com/versatilelibs/laravel-searchable)
+- Implementação do pacote [versatilelibs/laravel-searchable](https://github.com/versatilelibs/laravel-searchable) para realização de buscas simples nos (B)READS
 
 <hr>
 
