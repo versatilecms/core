@@ -112,4 +112,18 @@ trait Fields
 
         return $fieldOptions;
     }
+
+    public function getSortedFields()
+    {
+        $fields = [];
+        foreach (request()->sorts() as $field) {
+
+            $column = ltrim($field, '-');
+            $direction = ($field[0] === '-') ? 'desc' : 'asc';
+
+            $fields[$column] = $direction;
+        }
+
+        return $fields;
+    }
 }

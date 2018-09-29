@@ -55,7 +55,7 @@ class UsersBread extends AbstractBreadSeeder
             User::insert([
                 'name' => 'Admin',
                 'email' => 'admin@admin.com',
-                'password' => bcrypt('123456'),
+                'password' => bcrypt('password'),
                 'remember_token' => str_random(60),
                 'role_id' => 1,
                 'created_at' => $faker->dateTime()

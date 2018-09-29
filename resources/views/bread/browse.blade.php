@@ -41,7 +41,7 @@
                                         <a href="{{ $row->sortByUrl() }}">
                                             {{ $row->display_name }}
                                             @if ($row->isCurrentSortField())
-                                                @if (!request()->has('sort_order') || request('sort_order') == 'asc')
+                                                @if ($row->isCurrentSortType() == 'asc')
                                                     <i class="versatile-angle-up pull-right"></i>
                                                 @else
                                                     <i class="versatile-angle-down pull-right"></i>

@@ -60,7 +60,8 @@ trait VersatileUser
     /**
      * Set default User Role.
      *
-     * @param string $name The role name to associate.
+     * @param @param string $name The role name to associate.
+     * @return $this
      */
     public function setRole($name)
     {
@@ -78,11 +79,14 @@ trait VersatileUser
     {
         $this->loadPermissionsRelations();
 
-        $_permissions = $this->roles_all()
-                              ->pluck('permissions')->flatten()
-                              ->pluck('key')->unique()->toArray();
+        $permissions = $this->roles_all()
+                              ->pluck('permissions')
+                              ->flatten()
+                              ->pluck('key')
+                              ->unique()
+                               ->toArray();
 
-        return in_array($name, $_permissions);
+        return in_array($name, $permissions);
     }
 
     public function hasPermissionOrFail($name)

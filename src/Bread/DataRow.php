@@ -93,16 +93,6 @@ class DataRow
     }
 
     /**
-     * Check if this field is the current filter.
-     *
-     * @return bool True if this is the current filter, false otherwise
-     */
-    public function isCurrentSortField()
-    {
-        return isset($_GET['order_by']) && $_GET['order_by'] == $this->field;
-    }
-
-    /**
      * Build the URL to sort data type by this field.
      *
      * @return string Built URL
@@ -110,14 +100,36 @@ class DataRow
     public function sortByUrl()
     {
         $params = $_GET;
-        $isDesc = isset($params['sort_order']) && $params['sort_order'] != 'asc';
-        if ($this->isCurrentSortField() && $isDesc) {
-            $params['sort_order'] = 'asc';
-        } else {
-            $params['sort_order'] = 'desc';
+
+        $direction = '-'; // default desc
+
+        // If the current direction is desc inverts to asc
+        if ($this->isCurrentSortField() && $this->isCurrentSortType() == 'desc') {
+            $direction = '';
         }
-        $params['order_by'] = $this->field;
+
+        $params['sort'] = $direction.$this->field;
 
         return url()->current().'?'.http_build_query($params);
+    }
+
+    /**
+     * Check if this field is the current filter.
+     *
+     * @return bool True if this is the current filter, false otherwise
+     */
+    public function isCurrentSortField()
+    {
+        $sortedFields = $this->dataType->getSortedFields();
+        return isset($sortedFields[$this->field]);
+    }
+
+    /**
+     * @return null|string
+     */
+    public function isCurrentSortType()
+    {
+        $sortedFields = $this->dataType->getSortedFields();
+        return isset($sortedFields[$this->field]) ? $sortedFields[$this->field] : null;
     }
 }
