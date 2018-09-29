@@ -19,6 +19,14 @@ use Versatile\Core\Http\Controllers\Operations\Read;
 
 class BaseController extends Controller
 {
+    use Add;
+    use Browse;
+    use Delete;
+    use Edit;
+    use Order;
+    use Read;
+    use BreadRelationship;
+
     /**
      * Informs if DataType will be loaded from the database or setup
      *
@@ -41,14 +49,6 @@ class BaseController extends Controller
      */
     public $bread;
 
-
-    use Add;
-    use Browse;
-    use Delete;
-    use Edit;
-    use Order;
-    use Read;
-    use BreadRelationship;
 
     public function __construct()
     {

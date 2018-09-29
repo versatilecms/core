@@ -2,13 +2,13 @@
 
 namespace Versatile\Core;
 
-use Arrilot\Widgets\Facade as Widget;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
+use Versatile\Core\Bread\Router;
 use Versatile\Core\Events\AlertsCollection;
 use Versatile\Core\Models\DataRow;
 use Versatile\Core\Models\DataType;
@@ -288,5 +288,18 @@ class Versatile
         }
 
         return $locales;
+    }
+
+    /**
+     * Register the routes of the modules BREAD
+     *
+     * @param string $name
+     * @param string $controller
+     * @param array $options
+     * @return Router
+     */
+    public static function resource($name, $controller, array $options = [])
+    {
+        return new Router($name, $controller, $options);
     }
 }

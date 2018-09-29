@@ -4,18 +4,65 @@ namespace Versatile\Core\Bread;
 
 class DataRow
 {
+    /**
+     * @var string
+     */
     public $field;
+
+    /**
+     * @var string
+     */
     public $type;
+
+    /**
+     * @var string
+     */
     public $display_name;
-    public $required;
-    public $browse = 1;
-    public $read = 1;
-    public $edit = 1;
-    public $add = 1;
-    public $delete = 1;
+
+    /**
+     * @var boolean
+     */
+    public $required = false;
+
+    /**
+     * @var boolean
+     */
+    public $browse = true;
+
+    /**
+     * @var boolean
+     */
+    public $read = true;
+
+    /**
+     * @var boolean
+     */
+    public $edit = true;
+
+    /**
+     * @var boolean
+     */
+    public $add = true;
+
+    /**
+     * @var boolean
+     */
+    public $delete = true;
+
+    /**
+     * @var array
+     */
     public $details = [];
+
+    /**
+     * @var integer
+     */
     public $order;
 
+
+    /**
+     * @var DataType
+     */
     public $dataType;
 
     public function __construct($dataRow)
@@ -23,7 +70,6 @@ class DataRow
         foreach ($dataRow as $property => $value) {
 
             if (!property_exists($this, $property)) {
-                //throw new \Exception("This property {$property} does not exist");
                 continue;
             }
 

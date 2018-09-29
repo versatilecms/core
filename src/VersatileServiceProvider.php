@@ -6,10 +6,8 @@ use App;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\AliasLoader;
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\ServiceProvider;
 use Illuminate\Routing\Router;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Gate;
 
@@ -32,11 +30,7 @@ use Versatile\Core\Components\Filters\Filters;
 use Versatile\Core\Components\Fields\After\DescriptionHandler;
 use Versatile\Core\Http\Middleware\VersatileAdminMiddleware;
 use Versatile\Core\Http\Middleware\VersatileGuestMiddleware;
-use Versatile\Core\Models\MenuItem;
-use Versatile\Core\Models\Setting;
-use Versatile\Core\Policies\BasePolicy;
-use Versatile\Core\Policies\MenuItemPolicy;
-use Versatile\Core\Policies\SettingPolicy;
+
 use Versatile\Core\Providers\VersatileEventServiceProvider;
 use Versatile\Core\Translator\Collection as TranslatorCollection;
 
@@ -46,16 +40,6 @@ class VersatileServiceProvider extends ServiceProvider
      * Our root directory for this package to make traversal easier
      */
     protected $packagePath = __DIR__ . '/../';
-
-    /**
-     * The policy mappings for the application.
-     *
-     * @var array
-     */
-    protected $policies = [
-        Setting::class  => SettingPolicy::class,
-        MenuItem::class => MenuItemPolicy::class,
-    ];
 
     /**
      * Register the application services.

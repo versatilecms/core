@@ -73,7 +73,7 @@ class UsersController extends BaseController
                 'read' => true,
                 'edit' => true,
                 'add' => true,
-                'delete' => 1,
+                'delete' => true,
                 'details' => [
                     'resize' => [
                         'width' => '350',
@@ -110,8 +110,9 @@ class UsersController extends BaseController
                 'read' => true,
                 'edit' => true,
                 'add' => true,
-                'delete' => 1,
-                'details' => [],],
+                'delete' => true,
+                'details' => [],
+            ],
 
             [
                 'field' => 'email',
@@ -122,8 +123,9 @@ class UsersController extends BaseController
                 'read' => true,
                 'edit' => true,
                 'add' => true,
-                'delete' => 1,
-                'details' => [],],
+                'delete' => true,
+                'details' => [],
+            ],
 
             [
                 'field' => 'password',
@@ -135,7 +137,8 @@ class UsersController extends BaseController
                 'edit' => true,
                 'add' => true,
                 'delete' => false,
-                'details' => [],],
+                'details' => [],
+            ],
 
             [
                 'field' => 'remember_token',
@@ -147,7 +150,8 @@ class UsersController extends BaseController
                 'edit' => false,
                 'add' => false,
                 'delete' => false,
-                'details' => [],],
+                'details' => [],
+            ],
 
             [
                 'field' => 'created_at',
@@ -159,7 +163,8 @@ class UsersController extends BaseController
                 'edit' => false,
                 'add' => false,
                 'delete' => false,
-                'details' => [],],
+                'details' => [],
+            ],
 
             [
                 'field' => 'updated_at',
@@ -171,7 +176,8 @@ class UsersController extends BaseController
                 'edit' => false,
                 'add' => false,
                 'delete' => false,
-                'details' => [],],
+                'details' => [],
+            ],
 //            [
 //                'field' => 'role_id',
 //                'type' => 'text',
@@ -181,7 +187,7 @@ class UsersController extends BaseController
 //                'read' => true,
 //                'edit' => true,
 //                'add' => true,
-//                'delete' => 1,
+//                'delete' => true,
 //                'details' => [],
 ///            ],
             [
@@ -203,7 +209,8 @@ class UsersController extends BaseController
                     'label' => 'display_name',
                     'pivot_table' => 'roles',
                     'pivot' => 0
-                ],],
+                ],
+            ],
 
             [
                 'field' => 'user_roles',

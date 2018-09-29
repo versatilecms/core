@@ -5,9 +5,8 @@ namespace Versatile\Core\Models;
 use Illuminate\Support\Facades\DB;
 use Versatile\Core\Facades\Versatile;
 use Versatile\Core\Traits\Translatable;
-use Versatile\Core\Contracts\DataTypeInterface;
 
-class DataType extends BaseModel implements DataTypeInterface
+class DataType extends BaseModel
 {
     use Translatable;
 

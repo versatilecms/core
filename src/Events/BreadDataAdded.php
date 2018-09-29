@@ -3,7 +3,7 @@
 namespace Versatile\Core\Events;
 
 use Illuminate\Queue\SerializesModels;
-use Versatile\Core\Contracts\DataTypeInterface as DataType;
+use Versatile\Core\Contracts\DataTypeInterface;
 
 class BreadDataAdded
 {
@@ -13,7 +13,7 @@ class BreadDataAdded
 
     public $data;
 
-    public function __construct(DataType $dataType, $data)
+    public function __construct(DataTypeInterface $dataType, $data)
     {
         $this->dataType = $dataType;
 

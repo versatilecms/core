@@ -19,20 +19,76 @@ class DataType implements DataTypeInterface
     use Search;
     use Views;
 
+    /**
+     * @var string
+     */
     public $name;
+
+    /**
+     * @var string
+     */
     public $slug;
+
+    /**
+     * @var string
+     */
     public $display_name_singular;
+
+    /**
+     * @var string
+     */
     public $display_name_plural;
+
+    /**
+     * @var string
+     */
     public $icon;
+
+    /**
+     * @var string
+     */
     public $model_name;
+    /**
+     * @var string
+     */
     public $policy_name;
+
+    /**
+     * @deprecated
+     * @var string
+     */
     public $controller;
+
+    /**
+     * @var string
+     */
     public $description;
+
+    /**
+     * @var string
+     */
     public $generate_permissions;
-    public $order_column;
+
+    /**
+     * @var string
+     */
+    public $order_column = 'order';
+
+    /**
+     * @var string
+     */
     public $order_display_column;
 
+    /**
+     * The policy mappings for the application.
+     *
+     * @var array
+     */
     public $policies = [];
+
+    /**
+     * @var \Illuminate\Database\Eloquent\Model
+     */
     public $model;
 
     public function setDataType(DataTypeModel $dataType)
@@ -43,7 +99,7 @@ class DataType implements DataTypeInterface
         $this->setIcon($dataType->icon);
         $this->setModel($dataType->model_name);
 
-        if ($dataType->policy_name) {
+        if (isset($dataType->policy_name) && $dataType->policy_name) {
             $this->addPolicy($dataType->model_name, $dataType->policy_name);
         }
 
@@ -52,11 +108,17 @@ class DataType implements DataTypeInterface
         return $this;
     }
 
+    /**
+     * @param string $name
+     */
     public function setName($name)
     {
         $this->name = $name;
     }
 
+    /**
+     * @param string $slug
+     */
     public function setSlug($slug)
     {
         $this->slug = $slug;
@@ -84,7 +146,7 @@ class DataType implements DataTypeInterface
     /**
      * Get the corresponding Eloquent Model for the CrudController, as defined with the setModel() function.
      *
-     * @return string|\Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function getModel()
     {
