@@ -45,7 +45,7 @@ class UsersController extends BaseController
         $this->bread->addFilters([
             RoleFilter::class,
             RolesFilter::class,
-            CreatedAtFilter::class
+            // CreatedAtFilter::class
         ]);
 
         $this->bread->setEditAddView('versatile::users.edit-add');
