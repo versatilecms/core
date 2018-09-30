@@ -113,9 +113,10 @@ class BaseController extends Controller
     }
 
     /**
-     * Configuration options for a Scaffold.
+     * Configuration options for a bread.
      */
     public function setup()
     {
+
     }
 }

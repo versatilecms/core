@@ -4,13 +4,85 @@ namespace Versatile\Core\Http\Controllers\Tools;
 
 use Illuminate\Http\Request;
 
+use Versatile\Core\Http\Controllers\BaseController;
 use Versatile\Core\Models\Menu;
 use Versatile\Core\Models\MenuItem;
 use Versatile\Core\Facades\Versatile;
-use Versatile\Core\Http\Controllers\Controller;
 
-class MenuController extends Controller
+class MenusController extends BaseController
 {
+    /**
+     * Informs if DataType will be loaded from the database or setup
+     *
+     * @var bool
+     */
+    protected $dataTypeFromDatabase = false;
+
+    public function setup()
+    {
+        $this->bread->setName('menus');
+        $this->bread->setSlug('menus');
+
+        $this->bread->setDisplayNameSingular(__('versatile::seeders.data_types.menu.singular'));
+        $this->bread->setDisplayNamePlural(__('versatile::seeders.data_types.menu.plural'));
+
+        $this->bread->setIcon('versatile-list');
+        $this->bread->setModel(Menu::class);
+
+        $this->bread->addDataRows([
+            [
+                'field' => 'id',
+                'type' => 'number',
+                'display_name' => __('versatile::seeders.data_rows.id'),
+                'required' => true,
+                'browse' => true,
+                'read' => 0,
+                'edit' => 0,
+                'add' => 0,
+                'delete' => 0,
+                'details' => '',
+                'order' => true,
+                'sortable' => true,
+            ],
+
+            [
+                'field' => 'name',
+                'type' => 'text',
+                'display_name' => __('versatile::seeders.data_rows.name'),
+                'required' => true,
+                'browse' => true,
+                'read' => true,
+                'edit' => true,
+                'add' => true,
+                'delete' => true,
+                'sortable' => true,
+            ],
+
+            [
+                'field' => 'created_at',
+                'type' => 'timestamp',
+                'display_name' => __('versatile::seeders.data_rows.created_at'),
+                'required' => false,
+                'browse' => true,
+                'read' => true,
+                'edit' => false,
+                'add' => false,
+                'delete' => false
+            ],
+
+            [
+                'field' => 'updated_at',
+                'type' => 'timestamp',
+                'display_name' => __('versatile::seeders.data_rows.updated_at'),
+                'browse' => false,
+                'read' => true,
+                'edit' => false,
+                'add' => false,
+                'delete' => false
+            ]
+        ]);
+    }
+
     public function builder($id)
     {
         $menu = Menu::findOrFail($id);

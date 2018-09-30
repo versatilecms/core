@@ -16,7 +16,6 @@ class MenuDisplay
         $this->menu = $menu;
 
         // @deprecate
-        //
-        event('versatile.menu.display', $menu);
+        event('versatile.menus.display', $menu);
     }
 }

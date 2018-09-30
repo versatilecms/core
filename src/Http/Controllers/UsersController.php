@@ -61,6 +61,7 @@ class UsersController extends BaseController
                 'edit' => false,
                 'add' => false,
                 'delete' => false,
+                'sortable' => true,
                 'details' => [],
            ],
 
@@ -111,6 +112,7 @@ class UsersController extends BaseController
                 'edit' => true,
                 'add' => true,
                 'delete' => true,
+                'sortable' => true,
                 'details' => [],
             ],
 
@@ -124,6 +126,7 @@ class UsersController extends BaseController
                 'edit' => true,
                 'add' => true,
                 'delete' => true,
+                'sortable' => true,
                 'details' => [],
             ],
 
@@ -163,6 +166,7 @@ class UsersController extends BaseController
                 'edit' => false,
                 'add' => false,
                 'delete' => false,
+                'sortable' => true,
                 'details' => [],
             ],
 
@@ -176,6 +180,7 @@ class UsersController extends BaseController
                 'edit' => false,
                 'add' => false,
                 'delete' => false,
+                'sortable' => true,
                 'details' => [],
             ],
 
@@ -189,6 +194,7 @@ class UsersController extends BaseController
                 'edit' => true,
                 'add' => true,
                 'delete' => false,
+                'sortable' => true,
                 'details' => [
                     'model' => Role::class,
                     'table' => 'roles',

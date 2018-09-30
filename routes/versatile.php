@@ -108,7 +108,7 @@ Route::group([
         }
 
 
-        // Tests Scaffold
+        // Users routes
         Route::resource('users', $namespacePrefix . 'UsersController');
         Route::get('users/impersonate/{userId}', [
             'uses' => "{$namespacePrefix}UsersController@impersonate",
@@ -119,18 +119,21 @@ Route::group([
         // Role Routes
         Route::resource('roles', $namespacePrefix . 'RolesController');
 
+        // Role Routes
+        Route::resource('menus', $namespacePrefix . 'Tools\MenusController');
+
         // Menu Routes
         Route::group([
             'as' => 'menus.',
             'prefix' => 'menus/{menu}',
         ], function () use ($namespacePrefix) {
             Route::get('builder', [
-                'uses' => $namespacePrefix . 'Tools\MenuController@builder',
+                'uses' => $namespacePrefix . 'Tools\MenusController@builder',
                 'as' => 'builder'
             ]);
 
             Route::post('order', [
-                'uses' => $namespacePrefix . 'Tools\MenuController@order_item',
+                'uses' => $namespacePrefix . 'Tools\MenusController@order_item',
                 'as' => 'order'
             ]);
 
@@ -139,17 +142,17 @@ Route::group([
                 'prefix' => 'item',
             ], function () use ($namespacePrefix) {
                 Route::delete('{id}', [
-                    'uses' => $namespacePrefix . 'Tools\MenuController@delete_menu',
+                    'uses' => $namespacePrefix . 'Tools\MenusController@delete_menu',
                     'as' => 'destroy'
                 ]);
 
                 Route::post('/', [
-                    'uses' => $namespacePrefix . 'Tools\MenuController@add_item',
+                    'uses' => $namespacePrefix . 'Tools\MenusController@add_item',
                     'as' => 'add'
                 ]);
 
                 Route::put('/', [
-                    'uses' => $namespacePrefix .'Tools\MenuController@update_item',
+                    'uses' => $namespacePrefix .'Tools\MenusController@update_item',
                     'as' => 'update'
                 ]);
             });

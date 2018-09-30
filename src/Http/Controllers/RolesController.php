@@ -36,6 +36,7 @@ class RolesController extends BaseController
                 'edit' => false,
                 'add' => false,
                 'delete' => false,
+                'sortable' => true,
                 'details' => []
             ],
 
@@ -49,6 +50,7 @@ class RolesController extends BaseController
                 'edit' => true,
                 'add' => true,
                 'delete' => true,
+                'sortable' => true,
                 'details' => []
             ],
 
@@ -62,6 +64,7 @@ class RolesController extends BaseController
                 'edit' => true,
                 'add' => true,
                 'delete' => true,
+                'sortable' => true,
                 'details' => []
             ],
 
@@ -75,6 +78,7 @@ class RolesController extends BaseController
                 'edit' => false,
                 'add' => false,
                 'delete' => false,
+                'sortable' => true,
                 'details' => []
             ],
 
@@ -88,6 +92,7 @@ class RolesController extends BaseController
                 'edit' => false,
                 'add' => false,
                 'delete' => false,
+                'sortable' => true,
                 'details' => []
             ]
         ]);

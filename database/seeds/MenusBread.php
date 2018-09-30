@@ -87,6 +87,12 @@ class MenusBread extends AbstractBreadSeeder
                 'roles' => ['admin']
             ],
             [
+                'name' => 'read_menus',
+                'description' => null,
+                'table_name' => 'menus',
+                'roles' => ['admin']
+            ],
+            [
                 'name' => 'edit_menus',
                 'description' => null,
                 'table_name' => 'menus',

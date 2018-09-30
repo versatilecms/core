@@ -50,6 +50,11 @@ class DataRow
     public $delete = true;
 
     /**
+     * @var bool
+     */
+    public $sortable = false;
+
+    /**
      * @var array
      */
     public $details = [];

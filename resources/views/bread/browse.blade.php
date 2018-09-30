@@ -38,6 +38,7 @@
                                 @endcan
                                 @foreach($dataType->browseRows as $row)
                                     <th>
+                                        @if ($row->sortable)
                                         <a href="{{ $row->sortByUrl() }}">
                                             {{ $row->display_name }}
                                             @if ($row->isCurrentSortField())
@@ -48,6 +49,9 @@
                                                 @endif
                                             @endif
                                         </a>
+                                        @else
+                                        {{ $row->display_name }}
+                                        @endif
                                     </th>
                                 @endforeach
                                 <th class="actions">{{ __('versatile::generic.actions') }}</th>
