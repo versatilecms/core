@@ -2,9 +2,7 @@
 
 namespace Versatile\Core\Models;
 
-use Versatile\Core\Models\BaseModel;
 use Illuminate\Support\Facades\Route;
-use Versatile\Core\Facades\Versatile;
 use Versatile\Core\Traits\Translatable;
 
 class MenuItem extends BaseModel
@@ -36,13 +34,13 @@ class MenuItem extends BaseModel
 
     public function children()
     {
-        return $this->hasMany(Versatile::modelClass('MenuItem'), 'parent_id')
+        return $this->hasMany(MenuItem::class, 'parent_id')
             ->with('children');
     }
 
     public function menu()
     {
-        return $this->belongsTo(Versatile::modelClass('Menu'));
+        return $this->belongsTo(Menu::class);
     }
 
     public function link($absolute = false)

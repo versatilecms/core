@@ -2,9 +2,6 @@
 
 namespace Versatile\Core\Models;
 
-use Versatile\Core\Models\BaseModel;
-use Versatile\Core\Facades\Versatile;
-
 class DataRow extends BaseModel
 {
     protected $table = 'data_rows';
@@ -22,7 +19,7 @@ class DataRow extends BaseModel
      */
     public function dataType()
     {
-        return $this->belongsTo(Versatile::modelClass('DataType'));
+        return $this->belongsTo(DataType::class);
     }
 
     public function rowBefore()

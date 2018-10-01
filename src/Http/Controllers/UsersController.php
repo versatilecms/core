@@ -261,6 +261,19 @@ class UsersController extends BaseController
         ]);
 	}
 
+	public function index(Request $request)
+    {
+        $this->bread->editDataRowContent('name', function ($row) {
+            if (Versatile::can('read_users')) {
+                return $row->name = link_to_route('versatile.users.show', $row->name, $row->id);
+            }
+
+            return $row->name;
+        });
+
+        return parent::index($request);
+    }
+
     /**
      * Impersonate a user as an administrator
      *

@@ -2,8 +2,6 @@
 
 namespace Versatile\Core\Models;
 
-use Versatile\Core\Models\BaseModel;
-use Versatile\Core\Facades\Versatile;
 use Versatile\Core\Traits\HasRelationships;
 
 class Permission extends BaseModel
@@ -14,7 +12,7 @@ class Permission extends BaseModel
 
     public function roles()
     {
-        return $this->hasMany(Versatile::modelClass('Role'));
+        return $this->hasMany(Role::class);
     }
 
     public static function generateFor($table_name)

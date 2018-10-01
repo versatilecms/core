@@ -2,8 +2,6 @@
 
 namespace Versatile\Core\Models;
 
-use Versatile\Core\Models\BaseModel;
-
 class Translation extends BaseModel
 {
     protected $table = 'translations';

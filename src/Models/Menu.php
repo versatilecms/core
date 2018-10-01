@@ -2,10 +2,8 @@
 
 namespace Versatile\Core\Models;
 
-use Versatile\Core\Models\BaseModel;
 use Illuminate\Support\Facades\Auth;
 use Versatile\Core\Events\MenuDisplay;
-use Versatile\Core\Facades\Versatile;
 
 /**
  * @todo: Refactor this class by using something like MenuBuilder Helper.
@@ -22,12 +20,12 @@ class Menu extends BaseModel
 
     public function items()
     {
-        return $this->hasMany(Versatile::modelClass('MenuItem'));
+        return $this->hasMany(MenuItem::class);
     }
 
     public function parent_items()
     {
-        return $this->hasMany(Versatile::modelClass('MenuItem'))
+        return $this->hasMany(MenuItem::class)
             ->whereNull('parent_id');
     }
 
@@ -61,13 +59,13 @@ class Menu extends BaseModel
 
         // Set static vars values for admin menus
         if (in_array($type, ['admin', 'admin_menu'])) {
-            $permissions = Versatile::model('Permission')->all();
-            $dataTypes = Versatile::model('DataType')->all();
+            $permissions = Permission::all();
+            $dataTypes = DataType::all();
             $prefix = trim(route('versatile.dashboard', [], false), '/');
             $user_permissions = null;
 
             if (!Auth::guest()) {
-                $user = Versatile::model('User')->find(Auth::id());
+                $user = User::find(Auth::id());
                 $user_permissions = $user->role ? $user->role->permissions->pluck('key')->toArray() : [];
             }
 

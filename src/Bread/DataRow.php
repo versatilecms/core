@@ -27,27 +27,27 @@ class DataRow
     /**
      * @var boolean
      */
-    public $browse = true;
+    public $browse = false;
 
     /**
      * @var boolean
      */
-    public $read = true;
+    public $read = false;
 
     /**
      * @var boolean
      */
-    public $edit = true;
+    public $edit = false;
 
     /**
      * @var boolean
      */
-    public $add = true;
+    public $add = false;
 
     /**
      * @var boolean
      */
-    public $delete = true;
+    public $delete = false;
 
     /**
      * @var bool

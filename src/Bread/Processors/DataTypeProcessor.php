@@ -10,8 +10,14 @@ use Versatile\Core\Bread\DataType;
 
 class DataTypeProcessor
 {
+    /**
+     * @var array
+     */
     public $fieldsDefinitions = [];
 
+    /**
+     * @var Model|LengthAwarePaginator|Collection
+     */
     public $dataTypeContent;
 
     /**
@@ -23,6 +29,7 @@ class DataTypeProcessor
 
     /**
      * DataTypeProcessor constructor.
+     *
      * @param DataType $dataType
      * @param LengthAwarePaginator|Collection|Model $dataTypeContent
      * @throws \Exception
@@ -35,7 +42,7 @@ class DataTypeProcessor
         switch (true) {
             case $dataTypeContent instanceof LengthAwarePaginator:
             case $dataTypeContent instanceof Collection:
-                $this->output = $this->processCollection();
+                $this->output = $this->processList();
                 break;
 
             case $dataTypeContent instanceof Model:
@@ -50,7 +57,7 @@ class DataTypeProcessor
     /**
      * @return LengthAwarePaginator|Collection
      */
-    public function processCollection()
+    public function processList()
     {
         $this->dataTypeContent->map(function ($row) {
 

@@ -2,8 +2,6 @@
 
 namespace Versatile\Core\Models;
 
-use Versatile\Core\Models\BaseModel;
-use Versatile\Core\Facades\Versatile;
 use Versatile\Core\Traits\HasRelationships;
 
 class Role extends BaseModel
@@ -14,15 +12,13 @@ class Role extends BaseModel
 
     public function users()
     {
-        $userModel = Versatile::modelClass('User');
-
-        return $this->belongsToMany($userModel, 'user_roles')
-                    ->select(app($userModel)->getTable().'.*')
-                    ->union($this->hasMany($userModel))->getQuery();
+        return $this->belongsToMany(User::class, 'user_roles')
+                    ->select(app(User::class)->getTable().'.*')
+                    ->union($this->hasMany(User::class))->getQuery();
     }
 
     public function permissions()
     {
-        return $this->belongsToMany(Versatile::modelClass('Permission'));
+        return $this->belongsToMany(Permission::class);
     }
 }

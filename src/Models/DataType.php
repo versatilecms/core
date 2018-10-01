@@ -3,7 +3,6 @@
 namespace Versatile\Core\Models;
 
 use Illuminate\Support\Facades\DB;
-use Versatile\Core\Facades\Versatile;
 use Versatile\Core\Traits\Translatable;
 
 class DataType extends BaseModel
@@ -38,7 +37,7 @@ class DataType extends BaseModel
 
     public function rows()
     {
-        return $this->hasMany(Versatile::modelClass('DataRow'))->orderBy('order');
+        return $this->hasMany(DataRow::class)->orderBy('order');
     }
 
     public function setGeneratePermissionsAttribute($value)
@@ -87,7 +86,7 @@ class DataType extends BaseModel
 
                 // It seems everything was fine. Let's check if we need to generate permissions
                 if ($this->generate_permissions) {
-                    Versatile::model('Permission')->generateFor($this->name);
+                    app(Permission::class)->generateFor($this->name);
                 }
 
                 DB::commit();
