@@ -58,7 +58,7 @@ class BaseController extends Controller
 
             if ($this->dataTypeFromDatabase === true) {
                 $dataType = $this->getDataTypeModelInstance();
-                $this->bread->setDataType($dataType);
+                $this->bread->makeDataType($dataType);
             }
 
             $this->setup();
@@ -117,6 +117,5 @@ class BaseController extends Controller
      */
     public function setup()
     {
-
     }
 }

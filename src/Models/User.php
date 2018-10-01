@@ -21,6 +21,12 @@ class User extends Authenticatable implements UserInterface
         'settings' => 'array',
     ];
 
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
+
     /**
      * Searchable rules.
      *

@@ -79,7 +79,7 @@ if (!function_exists('delete_bread')) {
         DB::table($dataType->name)->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
-        $menu = \Versatile\Core\Models\MenuItem::where('title', $dataType->display_name_plural)->delete();
+        \Versatile\Core\Models\MenuItem::where('title', $dataType->display_name_plural)->delete();
 
         \Versatile\Core\Models\DataType::destroy($dataType->id);
     }

@@ -86,6 +86,32 @@ class DataRow
         }
     }
 
+    /**
+     * @param string $type
+     * @return $this
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @param string $name
+     * @return $this
+     */
+    public function setDisplayName($name)
+    {
+        $this->display_name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
     public function relationshipField()
     {
         $options = $this->details;

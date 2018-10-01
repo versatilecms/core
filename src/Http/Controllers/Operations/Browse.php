@@ -63,7 +63,7 @@ trait Browse
             'filters' => $filters,
             'actions' => $actions,
             'dataType' => $this->bread,
-            'dataTypeContent' => $dataTypeContent,
+            'dataTypeContent' => $this->bread->process($dataTypeContent),
             'isModelTranslatable' => $isModelTranslatable,
             'orderBy' => $orderBy,
             'sortOrder' => $sortOrder

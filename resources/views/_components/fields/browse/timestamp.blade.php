@@ -1,1 +1,9 @@
-{{ $options && property_exists($options, 'format') ? \Carbon\Carbon::parse($data->{$row->field})->formatLocalized($options->format) : $data->{$row->field} }}
+<?php
+if ($options && property_exists($options, 'format')) {
+	$value = \Carbon\Carbon::parse($data->{$row->field})->formatLocalized($options->format);
+} else {
+	$value = $data->{$row->field};
+}
+?>
+
+{{ $value }}

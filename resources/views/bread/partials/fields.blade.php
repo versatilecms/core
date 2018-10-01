@@ -24,7 +24,7 @@
             {{-- @todo verificar a melhor maneira para isso: $row->slugify --}}
             {{ isset($row->slugify) ? $row->slugify : '' }}
             
-            <label for="{{ $row->field }}">{{ $row->display_name }}</label>
+            <label for="{{ $row->field }}">{!! $row->display_name !!}</label>
             @include('versatile::multilingual.input-hidden-bread-edit-add')
             @if($row->type == 'relationship')
                 @include('versatile::_components.fields.form.relationship')

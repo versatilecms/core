@@ -91,7 +91,12 @@ class DataType implements DataTypeInterface
      */
     public $model;
 
-    public function setDataType(DataTypeModel $dataType)
+    /**
+     * @param DataTypeModel|DataTypeInterface $dataType
+     * @return $this
+     * @throws \Exception
+     */
+    public function makeDataType($dataType)
     {
         $this->setName($dataType->name);
         $this->setSlug($dataType->slug);

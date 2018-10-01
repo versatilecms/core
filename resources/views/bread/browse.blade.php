@@ -40,7 +40,7 @@
                                     <th>
                                         @if ($row->sortable)
                                         <a href="{{ $row->sortByUrl() }}">
-                                            {{ $row->display_name }}
+                                            {!! $row->display_name !!}
                                             @if ($row->isCurrentSortField())
                                                 @if ($row->isCurrentSortType() == 'asc')
                                                     <i class="versatile-angle-up pull-right"></i>
@@ -50,7 +50,7 @@
                                             @endif
                                         </a>
                                         @else
-                                        {{ $row->display_name }}
+                                        {!! $row->display_name !!}
                                         @endif
                                     </th>
                                 @endforeach

@@ -44,7 +44,7 @@ trait Edit
 
         return Versatile::view($view, [
             'dataType' => $this->bread,
-            'dataTypeContent' => $dataTypeContent,
+            'dataTypeContent' => $this->bread->process($dataTypeContent),
             'isModelTranslatable' => $isModelTranslatable
         ]);
     }
