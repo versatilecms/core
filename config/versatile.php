@@ -181,6 +181,10 @@ return [
                 'icon_class' => 'versatile-power',
             ],
         ],
+
+        'widgets' => [
+            'Versatile\\Core\\Components\\Widgets\\UserDimmer',
+        ],
     ],
 
     /*

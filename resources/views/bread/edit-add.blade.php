@@ -53,6 +53,7 @@
                                 $dataTypeRows = $dataType->{(!is_null($dataTypeContent->getKey()) ? 'editRows' : 'addRows' )};
                             @endphp
                             {!! form_fields($dataTypeRows, $dataTypeContent) !!}
+
                         </div><!-- panel-body -->
 
                         <div class="panel-footer">

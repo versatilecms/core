@@ -62,11 +62,6 @@ class Versatile
         return app($this->models[studly_case($name)]);
     }
 
-    public function modelClass($name)
-    {
-        return $this->models[$name];
-    }
-
     public function useModel($name, $object)
     {
         if (is_string($object)) {
