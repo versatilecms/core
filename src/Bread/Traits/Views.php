@@ -113,24 +113,24 @@ trait Views
      * @param string $operation browse, read, edit, add or order
      * @return string
      */
-	public function getView($operation)
+    public function getView($operation)
     {
         // View defined in controller setup
-    	$view = $this->{$operation.'View'};
-
-    	if (is_null($view)) {
-
-    	    // Get the default view defined in the configuration file
-    		return config('versatile.bread.views.' . $operation, 'versatile::bread.' . $operation);
-    	}
-
-    	// You can override any of the BREAD views by creating a new folder in resources/views/vendor/versatile/slug-name
-        // and slug-name will be the slug that you have assigned for that bread instance.
-        if (View::exists("versatile::{$this->slug}.edit-add")) {
-            $view = "versatile::{$this->slug}.edit-add";
+        $view = $this->{$operation.'View'};
+        if (!is_null($view)) {
+            return $view;
         }
 
-    	return $view;
+        // You can override any of the BREAD views by creating a new folder in resources/views/vendor/versatile/slug-name
+        // and slug-name will be the slug that you have assigned for that bread instance.
+        if (View::exists("versatile::{$this->slug}.$operation")) {
+            return "versatile::{$this->slug}.$operation";
+        }
+
+        // Get the default view defined in the configuration file
+        $view = config('versatile.bread.views.' . $operation, 'versatile::bread.' . $operation);
+
+        return $view;
     }
 
     /**
