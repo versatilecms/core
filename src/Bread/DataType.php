@@ -70,11 +70,13 @@ class DataType implements DataTypeInterface
     public $generate_permissions;
 
     /**
+     * @deprecated
      * @var string
      */
     public $order_column = 'order';
 
     /**
+     * @deprecated
      * @var string
      */
     public $order_display_column;
@@ -90,6 +92,20 @@ class DataType implements DataTypeInterface
      * @var \Illuminate\Database\Eloquent\Model
      */
     public $model;
+
+    /**
+     * Default method for retrieving records (paginate or get)
+     *
+     * @var string
+     */
+    public $get_method = 'paginate';
+
+    /**
+     * @var array
+     */
+    public $order_by = [
+        'id' => 'desc'
+    ];
 
     /**
      * @param DataTypeModel|DataTypeInterface $dataType
@@ -179,6 +195,19 @@ class DataType implements DataTypeInterface
         $this->policies[$model] = $policy;
 
         return $this;
+    }
+
+    /**
+     * The orderBy method allows you to sort the result of the query by a given column.
+     * The first argument to the orderBy method should be the column you wish to sort by,
+     * while the second argument controls the direction of the sort and may be either asc or desc:
+     *
+     * @param string $column
+     * @param string $direction
+     */
+    public function orderBy($column, $direction)
+    {
+        $this->order_by[$column] = $direction;
     }
 
     public function __get($name)

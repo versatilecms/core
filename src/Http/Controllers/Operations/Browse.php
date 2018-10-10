@@ -24,7 +24,7 @@ trait Browse
         // Check permission
         $this->authorize('browse', $model);
 
-        $getter = 'paginate';
+        $getter = $this->bread->get_method;
 
         $orderBy = $request->get('order_by');
         $sortOrder = $request->get('sort_order', null);
@@ -38,6 +38,12 @@ trait Browse
 
         $dataTypeContent = QueryBuilder::for($model->query(), $request)
             ->apply($filters);
+
+        if (!$request->sorts()->count()) {
+            foreach ($this->bread->order_by as $column => $direction) {
+                $dataTypeContent = $dataTypeContent->orderBy($column, $direction);
+            }
+        }
 
         // If there is a search
         if ($request->has('q')) {
